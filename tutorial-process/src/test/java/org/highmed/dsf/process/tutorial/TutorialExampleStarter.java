@@ -1,4 +1,4 @@
-package org.highmed.dsf.process.tutorial.start;
+package org.highmed.dsf.process.tutorial;
 
 import static org.highmed.dsf.bpe.ConstantsBase.CODESYSTEM_HIGHMED_BPMN;
 import static org.highmed.dsf.bpe.ConstantsBase.CODESYSTEM_HIGHMED_BPMN_VALUE_MESSAGE_NAME;

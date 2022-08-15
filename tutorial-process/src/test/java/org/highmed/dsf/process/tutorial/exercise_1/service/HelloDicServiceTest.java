@@ -1,9 +1,10 @@
-package org.highmed.dsf.process.tutorial.service;
+package org.highmed.dsf.process.tutorial.exercise_1.service;
 
 import static org.highmed.dsf.bpe.ConstantsBase.BPMN_EXECUTION_VARIABLE_LEADING_TASK;
 import static org.highmed.dsf.bpe.ConstantsBase.NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.highmed.dsf.process.tutorial.service.HelloDic;
 import org.hl7.fhir.r4.model.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;

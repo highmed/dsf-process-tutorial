@@ -1,16 +1,18 @@
-package org.highmed.dsf.process.tutorial;
+package org.highmed.dsf.process.tutorial.exercise_1;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.highmed.dsf.bpe.ProcessPluginDefinition;
 import org.highmed.dsf.fhir.resources.ResourceProvider;
+import org.highmed.dsf.process.tutorial.ConstantsTutorial;
+import org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition;
 import org.junit.Test;
 import org.springframework.core.env.StandardEnvironment;
 
 import ca.uhn.fhir.context.FhirContext;
 
-public class HelloWorldProcessPluginDefinitionTest
+public class TutorialProcessPluginDefinitionTest
 {
 	@Test
 	public void testResourceLoading() throws Exception

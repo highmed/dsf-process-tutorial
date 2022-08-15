@@ -1,4 +1,4 @@
-package org.highmed.dsf.process.tutorial.profile;
+package org.highmed.dsf.process.tutorial.exercise_1.profile;
 
 import static org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition.RELEASE_DATE;
 import static org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition.VERSION;
@@ -47,7 +47,7 @@ public class ActivityDefinitionProfileTest
 	private final ProcessAuthorizationHelper processAuthorizationHelper = new ProcessAuthorizationHelperImpl();
 
 	@Test
-	public void testHelloWorldValid() throws Exception
+	public void testHelloDicValid() throws Exception
 	{
 		ActivityDefinition ad = validationRule
 				.readActivityDefinition(Paths.get("src/main/resources/fhir/ActivityDefinition/hello-dic.xml"));

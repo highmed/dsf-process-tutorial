@@ -1,4 +1,4 @@
-package org.highmed.dsf.process.tutorial.profile;
+package org.highmed.dsf.process.tutorial.exercise_1.profile;
 
 import static org.highmed.dsf.bpe.ConstantsBase.CODESYSTEM_HIGHMED_BPMN;
 import static org.highmed.dsf.bpe.ConstantsBase.CODESYSTEM_HIGHMED_BPMN_VALUE_MESSAGE_NAME;
@@ -45,7 +45,7 @@ public class TaskProfileTest
 	@Test
 	public void testTaskHelloDicValid()
 	{
-		Task task = createValidTaskHelloWorld();
+		Task task = createValidTaskHelloDic();
 
 		ValidationResult result = resourceValidator.validate(task);
 		ValidationSupportRule.logValidationMessages(logger, result);
@@ -54,7 +54,7 @@ public class TaskProfileTest
 				|| ResultSeverityEnum.FATAL.equals(m.getSeverity())).count());
 	}
 
-	private Task createValidTaskHelloWorld()
+	private Task createValidTaskHelloDic()
 	{
 		Task task = new Task();
 		task.getMeta().addProfile(PROFILE_TUTORIAL_TASK_HELLO_DIC);
