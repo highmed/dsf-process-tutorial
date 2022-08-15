@@ -35,7 +35,7 @@ public class HelloDicServiceTest
 				.count();
 
 		String errorMethod = "Configuration file 'TutorialConfig.java' contains " + count
-				+ " public methods with return type 'HelloDic', expected 1";
+				+ " public spring bean methods with return type 'HelloDic', expected 1";
 		assertEquals(errorMethod, 1, count);
 	}
 
