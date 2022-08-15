@@ -1,6 +1,4 @@
-package org.highmed.dsf.process.tutorial.bpe;
-
-import static org.highmed.dsf.process.tutorial.bpe.ConstantsTutorial.PROCESS_NAME_FULL_HELLO_WORLD;
+package org.highmed.dsf.process.tutorial;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -13,7 +11,7 @@ import org.highmed.dsf.fhir.resources.AbstractResource;
 import org.highmed.dsf.fhir.resources.ActivityDefinitionResource;
 import org.highmed.dsf.fhir.resources.ResourceProvider;
 import org.highmed.dsf.fhir.resources.StructureDefinitionResource;
-import org.highmed.dsf.process.tutorial.bpe.spring.config.TutorialConfig;
+import org.highmed.dsf.process.tutorial.spring.config.TutorialConfig;
 import org.springframework.core.env.PropertyResolver;
 
 import ca.uhn.fhir.context.FhirContext;
@@ -60,8 +58,9 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 		var aHelloProcess = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-world.xml");
 		var tHelloProcess = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-world.xml");
 
-		Map<String, List<AbstractResource>> resourcesByProcessKeyAndVersion = Map
-				.of(PROCESS_NAME_FULL_HELLO_WORLD + "/" + VERSION, Arrays.asList(aHelloProcess, tHelloProcess));
+		Map<String, List<AbstractResource>> resourcesByProcessKeyAndVersion = Map.of(
+				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_WORLD + "/" + VERSION,
+				Arrays.asList(aHelloProcess, tHelloProcess));
 
 		return ResourceProvider.read(VERSION, RELEASE_DATE,
 				() -> fhirContext.newXmlParser().setStripVersionsFromReferences(false), classLoader, resolver,

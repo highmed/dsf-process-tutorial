@@ -1,7 +1,7 @@
-package org.highmed.dsf.process.tutorial.bpe;
+package org.highmed.dsf.process.tutorial;
 
 import static org.highmed.dsf.bpe.ConstantsBase.PROCESS_HIGHMED_URI_BASE;
-import static org.highmed.dsf.process.tutorial.bpe.TutorialProcessPluginDefinition.VERSION;
+import static org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition.VERSION;
 
 public interface ConstantsTutorial
 {

@@ -7,7 +7,7 @@
       <bpmn:incoming>SequenceFlow_0oyvmcd</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0oyvmcd" sourceRef="helloWorld" targetRef="EndEvent_0xd0x8k" />
-    <bpmn:serviceTask id="helloWorld" name="Hello World" camunda:class="org.highmed.dsf.process.tutorial.bpe.service.HelloWorld">
+    <bpmn:serviceTask id="helloWorld" name="Hello World" camunda:class="org.highmed.dsf.process.tutorial.service.HelloWorld">
       <bpmn:incoming>SequenceFlow_0bbhq2r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0oyvmcd</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -27,14 +27,14 @@
         <di:waypoint x="215" y="121" />
         <di:waypoint x="280" y="121" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="StartEvent_0x5gijn_di" bpmnElement="startHelloWorld">
-        <dc:Bounds x="179" y="103" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0xd0x8k_di" bpmnElement="EndEvent_0xd0x8k">
         <dc:Bounds x="462" y="103" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0um3ad2_di" bpmnElement="helloWorld">
         <dc:Bounds x="280" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0x5gijn_di" bpmnElement="startHelloWorld">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

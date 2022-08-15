@@ -24,12 +24,18 @@
 			<groupId>org.highmed.dsf</groupId>
 			<artifactId>dsf-tools-documentation-generator</artifactId>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
+			<groupId>org.highmed.dsf</groupId>
+			<artifactId>dsf-bpe-process-base</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -37,9 +43,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<!-- TODO <executions>
+				<executions>
 					<execution>
-						<id>copy-process-plugin-to-docker-test-setup/crr</id>
+						<id>copy-process-plugin-to-test-setup/dic</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy</goal>
@@ -52,107 +58,25 @@
 									<version>${project.version}</version>
 								</artifactItem>
 							</artifactItems>
-							<outputDirectory>../codex-processes-ap1-docker-test-setup/crr/bpe/process</outputDirectory>
+							<outputDirectory>../test-setup/dic/bpe/process</outputDirectory>
 						</configuration>
 					</execution>
-					<execution>
-						<id>copy-hapi-fhir-client/crr</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>ca.uhn.hapi.fhir</groupId>
-									<artifactId>hapi-fhir-client</artifactId>
-									<version>${hapi.version}</version>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>../codex-processes-ap1-docker-test-setup/crr/bpe/plugin</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-process-plugin-to-docker-test-setup/dic</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.version}</version>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>../codex-processes-ap1-docker-test-setup/dic/bpe/process</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-hapi-fhir-client/dic</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>ca.uhn.hapi.fhir</groupId>
-									<artifactId>hapi-fhir-client</artifactId>
-									<version>${hapi.version}</version>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>../codex-processes-ap1-docker-test-setup/dic/bpe/plugin</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-process-plugin-to-docker-test-setup/gth</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.version}</version>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>../codex-processes-ap1-docker-test-setup/gth/bpe/process</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>-->
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-				<!--<configuration>
+				<configuration>
 					<filesets>
 						<fileset>
-							<directory>../codex-processes-ap1-docker-test-setup/crr/bpe/process</directory>
-							<includes>
-								<include>*.jar</include>
-							</includes>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-						<fileset>
-							<directory>../codex-processes-ap1-docker-test-setup/dic/bpe/process</directory>
-							<includes>
-								<include>*.jar</include>
-							</includes>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-						<fileset>
-							<directory>../codex-processes-ap1-docker-test-setup/gth/bpe/process</directory>
+							<directory>../test-setup/dic/bpe/process</directory>
 							<includes>
 								<include>*.jar</include>
 							</includes>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
 					</filesets>
-				</configuration>-->
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
