@@ -20,10 +20,10 @@ public class HelloWorldProcessPluginDefinitionTest
 				new StandardEnvironment());
 		assertNotNull(provider);
 
-		var helloWorld = provider.getResources(
+		var helloDic = provider.getResources(
 				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + TutorialProcessPluginDefinition.VERSION,
 				s -> ResourceProvider.empty());
-		assertNotNull(helloWorld);
-		assertEquals(2, helloWorld.count());
+		assertNotNull(helloDic);
+		assertEquals(2, helloDic.count());
 	}
 }
