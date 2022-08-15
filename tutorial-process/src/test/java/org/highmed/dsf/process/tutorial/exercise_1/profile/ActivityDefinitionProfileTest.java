@@ -3,6 +3,7 @@ package org.highmed.dsf.process.tutorial.exercise_1.profile;
 import static org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition.RELEASE_DATE;
 import static org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition.VERSION;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Paths;
@@ -14,6 +15,9 @@ import org.highmed.dsf.fhir.validation.ResourceValidator;
 import org.highmed.dsf.fhir.validation.ResourceValidatorImpl;
 import org.highmed.dsf.fhir.validation.ValidationSupportRule;
 import org.hl7.fhir.r4.model.ActivityDefinition;
+import org.hl7.fhir.r4.model.Coding;
+import org.hl7.fhir.r4.model.Extension;
+import org.hl7.fhir.r4.model.Type;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -59,5 +63,26 @@ public class ActivityDefinitionProfileTest
 				|| ResultSeverityEnum.FATAL.equals(m.getSeverity())).count());
 
 		assertTrue(processAuthorizationHelper.isValid(ad, taskProfile -> true, orgIdentifier -> true, role -> true));
+	}
+
+	@Test
+	public void testRequestorValid() throws Exception
+	{
+		ActivityDefinition ad = validationRule
+				.readActivityDefinition(Paths.get("src/main/resources/fhir/ActivityDefinition/hello-dic.xml"));
+
+		Extension processAuthorization = ad
+				.getExtensionByUrl("http://highmed.org/fhir/StructureDefinition/extension-process-authorization");
+		assertNotNull(processAuthorization);
+
+		Extension requester = processAuthorization.getExtensionByUrl("requester");
+		assertNotNull(requester);
+
+		Type value = requester.getValue();
+		assertTrue(value instanceof Coding);
+
+		Coding coding = (Coding) value;
+		assertEquals("http://highmed.org/fhir/CodeSystem/process-authorization", coding.getSystem());
+		assertEquals("LOCAL_ALL", coding.getCode());
 	}
 }
