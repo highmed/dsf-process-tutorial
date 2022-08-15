@@ -41,7 +41,7 @@ public class HelloDicServiceTest
 	}
 
 	@Test
-	public void testLogParameterAvailableAvailable()
+	public void testLogParameterAvailable()
 	{
 		String fieldname = "loggingEnabled";
 
