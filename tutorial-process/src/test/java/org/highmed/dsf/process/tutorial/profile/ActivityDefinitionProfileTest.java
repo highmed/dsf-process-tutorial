@@ -50,7 +50,7 @@ public class ActivityDefinitionProfileTest
 	public void testHelloWorldValid() throws Exception
 	{
 		ActivityDefinition ad = validationRule
-				.readActivityDefinition(Paths.get("src/main/resources/fhir/ActivityDefinition/hello-world.xml"));
+				.readActivityDefinition(Paths.get("src/main/resources/fhir/ActivityDefinition/hello-dic.xml"));
 
 		ValidationResult result = resourceValidator.validate(ad);
 		ValidationSupportRule.logValidationMessages(logger, result);

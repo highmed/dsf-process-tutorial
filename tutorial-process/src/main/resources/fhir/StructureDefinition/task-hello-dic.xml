@@ -5,10 +5,10 @@
       <code value="ALL" />
     </tag>
   </meta>
-  <url value="http://highmed.org/fhir/StructureDefinition/task-hello-world" />
+  <url value="http://highmed.org/fhir/StructureDefinition/task-hello-dic" />
   <!-- version managed by bpe -->
   <version value="#{version}" />
-  <name value="helloWorldProcess" />
+  <name value="helloDicProcess" />
   <!-- status managed by bpe -->
   <status value="unknown" />
   <experimental value="false" />
@@ -23,7 +23,7 @@
   <differential>
     <element id="Task.instantiatesUri">
       <path value="Task.instantiatesUri" />
-      <fixedUri value="http://highmed.org/bpe/Process/helloWorld/#{version}" />
+      <fixedUri value="http://highmed.org/bpe/Process/helloDic/#{version}" />
     </element>
     <element id="Task.input">
       <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name">
@@ -41,7 +41,7 @@
     </element>
     <element id="Task.input:message-name.value[x]">
       <path value="Task.input.value[x]" />
-      <fixedString value="helloWorldMessage" />
+      <fixedString value="helloDic" />
     </element>
     <element id="Task.input:business-key">
       <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-explicit-type-name">

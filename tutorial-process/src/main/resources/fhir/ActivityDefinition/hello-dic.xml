@@ -7,10 +7,10 @@
 	</meta>
 	<extension url="http://highmed.org/fhir/StructureDefinition/extension-process-authorization">
 		<extension url="message-name">
-			<valueString value="helloProcess" />
+			<valueString value="helloDic" />
 		</extension>
 		<extension url="task-profile">
-			<valueCanonical value="http://highmed.org/fhir/StructureDefinition/task-hello-world|#{version}" />
+			<valueCanonical value="http://highmed.org/fhir/StructureDefinition/task-hello-dic|#{version}" />
 		</extension>
 		<extension url="requester">
 			<valueCoding>
@@ -25,12 +25,12 @@
 			</valueCoding>
 		</extension>
 	</extension>
-	<url value="http://highmed.org/bpe/Process/helloWorld" />
+	<url value="http://highmed.org/bpe/Process/helloDic" />
 	<!-- version managed by bpe -->
 	<version value="#{version}" />
-	<name value="HelloWorld" />
-	<title value="Hello World" />
-	<subtitle value="Hello World process for the DSF process implementation tutorial" />
+	<name value="HelloDic" />
+	<title value="Hello DIC" />
+	<subtitle value="Hello DIC process for the DSF process implementation tutorial" />
 	<!-- status managed by bpe -->
 	<status value="unknown" />
 	<experimental value="false" />

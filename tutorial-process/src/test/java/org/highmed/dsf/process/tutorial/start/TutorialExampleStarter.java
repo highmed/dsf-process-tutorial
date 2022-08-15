@@ -3,9 +3,9 @@ package org.highmed.dsf.process.tutorial.start;
 import static org.highmed.dsf.bpe.ConstantsBase.CODESYSTEM_HIGHMED_BPMN;
 import static org.highmed.dsf.bpe.ConstantsBase.CODESYSTEM_HIGHMED_BPMN_VALUE_MESSAGE_NAME;
 import static org.highmed.dsf.bpe.ConstantsBase.NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER;
-import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_WORLD_AND_LATEST_VERSION;
-import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_WORLD_MESSAGE_NAME;
-import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_WORLD_PROCESS_URI_AND_LATEST_VERSION;
+import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_DIC_AND_LATEST_VERSION;
+import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_DIC_MESSAGE_NAME;
+import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_DIC_PROCESS_URI_AND_LATEST_VERSION;
 
 import java.util.Date;
 
@@ -23,23 +23,23 @@ public class TutorialExampleStarter
 	public static void main(String[] args) throws Exception
 	{
 		Task task = createStartResource();
-		ExampleStarter.forServer(args, "baseUrl").startWith(task);
+		ExampleStarter.forServer(args, "https://dic/fhir").startWith(task);
 	}
 
 	private static Task createStartResource()
 	{
 		Task task = new Task();
-		task.getMeta().addProfile(PROFILE_TUTORIAL_TASK_HELLO_WORLD_AND_LATEST_VERSION);
-		task.setInstantiatesUri(PROFILE_TUTORIAL_TASK_HELLO_WORLD_PROCESS_URI_AND_LATEST_VERSION);
+		task.getMeta().addProfile(PROFILE_TUTORIAL_TASK_HELLO_DIC_AND_LATEST_VERSION);
+		task.setInstantiatesUri(PROFILE_TUTORIAL_TASK_HELLO_DIC_PROCESS_URI_AND_LATEST_VERSION);
 		task.setStatus(Task.TaskStatus.REQUESTED);
 		task.setIntent(Task.TaskIntent.ORDER);
 		task.setAuthoredOn(new Date());
 		task.getRequester().setType(ResourceType.Organization.name()).getIdentifier()
-				.setSystem(NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER).setValue("MeDIC");
+				.setSystem(NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER).setValue("Test_DIC");
 		task.getRestriction().addRecipient().setType(ResourceType.Organization.name()).getIdentifier()
-				.setSystem(NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER).setValue("MeDIC");
+				.setSystem(NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER).setValue("Test_DIC");
 
-		task.addInput().setValue(new StringType(PROFILE_TUTORIAL_TASK_HELLO_WORLD_MESSAGE_NAME)).getType().addCoding()
+		task.addInput().setValue(new StringType(PROFILE_TUTORIAL_TASK_HELLO_DIC_MESSAGE_NAME)).getType().addCoding()
 				.setSystem(CODESYSTEM_HIGHMED_BPMN).setCode(CODESYSTEM_HIGHMED_BPMN_VALUE_MESSAGE_NAME);
 
 		return task;

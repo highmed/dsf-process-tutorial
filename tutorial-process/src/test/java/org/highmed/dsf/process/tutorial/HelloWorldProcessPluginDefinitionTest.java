@@ -21,7 +21,7 @@ public class HelloWorldProcessPluginDefinitionTest
 		assertNotNull(provider);
 
 		var helloWorld = provider.getResources(
-				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_WORLD + "/" + TutorialProcessPluginDefinition.VERSION,
+				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + TutorialProcessPluginDefinition.VERSION,
 				s -> ResourceProvider.empty());
 		assertNotNull(helloWorld);
 		assertEquals(2, helloWorld.count());

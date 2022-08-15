@@ -8,11 +8,11 @@ import org.highmed.dsf.fhir.task.TaskHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HelloWorld extends AbstractServiceDelegate
+public class HelloDic extends AbstractServiceDelegate
 {
-	private static final Logger logger = LoggerFactory.getLogger(HelloWorld.class);
+	private static final Logger logger = LoggerFactory.getLogger(HelloDic.class);
 
-	public HelloWorld(FhirWebserviceClientProvider clientProvider, TaskHelper taskHelper,
+	public HelloDic(FhirWebserviceClientProvider clientProvider, TaskHelper taskHelper,
 			ReadAccessHelper readAccessHelper)
 	{
 		super(clientProvider, taskHelper, readAccessHelper);
@@ -21,7 +21,7 @@ public class HelloWorld extends AbstractServiceDelegate
 	@Override
 	protected void doExecute(DelegateExecution execution)
 	{
-		logger.info("Hello World from organization '{}'", getLeadingTaskFromExecutionVariables().getRestriction()
+		logger.info("Hello Dic from organization '{}'", getLeadingTaskFromExecutionVariables().getRestriction()
 				.getRecipientFirstRep().getIdentifier().getValue());
 	}
 }

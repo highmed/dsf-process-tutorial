@@ -42,7 +42,7 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 	@Override
 	public Stream<String> getBpmnFiles()
 	{
-		return Stream.of("bpe/hello-world.bpmn");
+		return Stream.of("bpe/hello-dic.bpmn");
 	}
 
 	@Override
@@ -55,11 +55,11 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 	public ResourceProvider getResourceProvider(FhirContext fhirContext, ClassLoader classLoader,
 			PropertyResolver resolver)
 	{
-		var aHelloProcess = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-world.xml");
-		var tHelloProcess = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-world.xml");
+		var aHelloProcess = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-dic.xml");
+		var tHelloProcess = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-dic.xml");
 
 		Map<String, List<AbstractResource>> resourcesByProcessKeyAndVersion = Map.of(
-				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_WORLD + "/" + VERSION,
+				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + VERSION,
 				Arrays.asList(aHelloProcess, tHelloProcess));
 
 		return ResourceProvider.read(VERSION, RELEASE_DATE,

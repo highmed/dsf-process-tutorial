@@ -3,7 +3,7 @@ package org.highmed.dsf.process.tutorial.spring.config;
 import org.highmed.dsf.fhir.authorization.read.ReadAccessHelper;
 import org.highmed.dsf.fhir.client.FhirWebserviceClientProvider;
 import org.highmed.dsf.fhir.task.TaskHelper;
-import org.highmed.dsf.process.tutorial.service.HelloWorld;
+import org.highmed.dsf.process.tutorial.service.HelloDic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +21,8 @@ public class TutorialConfig
 	private ReadAccessHelper readAccessHelper;
 
 	@Bean
-	public HelloWorld helloWorld()
+	public HelloDic helloDic()
 	{
-		return new HelloWorld(clientProvider, taskHelper, readAccessHelper);
+		return new HelloDic(clientProvider, taskHelper, readAccessHelper);
 	}
 }
