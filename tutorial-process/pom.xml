@@ -45,6 +45,23 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>copy-process-plugin-to-test-setup/cos</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>../test-setup/cos/bpe/process</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
 						<id>copy-process-plugin-to-test-setup/dic</id>
 						<phase>package</phase>
 						<goals>
@@ -61,6 +78,23 @@
 							<outputDirectory>../test-setup/dic/bpe/process</outputDirectory>
 						</configuration>
 					</execution>
+					<execution>
+						<id>copy-process-plugin-to-test-setup/hrp</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>../test-setup/hrp/bpe/process</outputDirectory>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -69,7 +103,21 @@
 				<configuration>
 					<filesets>
 						<fileset>
+							<directory>../test-setup/cos/bpe/process</directory>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
 							<directory>../test-setup/dic/bpe/process</directory>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>../test-setup/hrp/bpe/process</directory>
 							<includes>
 								<include>*.jar</include>
 							</includes>
