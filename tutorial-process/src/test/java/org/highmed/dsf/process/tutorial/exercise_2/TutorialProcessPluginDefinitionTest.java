@@ -50,6 +50,10 @@ public class TutorialProcessPluginDefinitionTest
 	@Test
 	public void testProcessPluginDefinition() throws Exception
 	{
+		String codeSystemUrl = "http://highmed.org/fhir/CodeSystem/tutorial";
+		String codeSystemCode = "tutorial-input";
+		String valueSetUrl = "http://highmed.org/fhir/ValueSet/tutorial";
+
 		ProcessPluginDefinition definition = new TutorialProcessPluginDefinition();
 		ResourceProvider provider = definition.getResourceProvider(FhirContext.forR4(), getClass().getClassLoader(),
 				new StandardEnvironment());
@@ -59,10 +63,18 @@ public class TutorialProcessPluginDefinitionTest
 				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + TutorialProcessPluginDefinition.VERSION,
 				s -> ResourceProvider.empty()).collect(Collectors.toList());
 
+		String errorCodeSystem = "Process is missing CodeSystem with url '" + codeSystemUrl + "' and concept '"
+				+ codeSystemCode + "' with type 'string'";
+		assertEquals(errorCodeSystem, 1, helloDic.stream().filter(r -> r instanceof CodeSystem).map(r -> (CodeSystem) r)
+				.filter(c -> codeSystemUrl.equals(c.getUrl()))
+				.filter(c -> c.getConcept().stream().anyMatch(con -> codeSystemCode.equals(con.getCode()))).count());
+
+		String errorValueSet = "Process is missing ValueSet with url '" + valueSetUrl + "'";
+		assertEquals(errorValueSet, 1, helloDic.stream().filter(r -> r instanceof ValueSet).map(r -> (ValueSet) r)
+				.filter(v -> valueSetUrl.equals(v.getUrl()))
+				.filter(v -> v.getCompose().getInclude().stream().anyMatch(i -> codeSystemUrl.equals(i.getSystem())))
+				.count());
+
 		assertEquals(4, helloDic.size());
-		assertEquals("Process is missing CodeSystem with url 'http://highmed.org/fhir/CodeSystem/tutorial'", 1,
-				helloDic.stream().filter(r -> r instanceof CodeSystem).count());
-		assertEquals("Process is missing ValueSet with url 'http://highmed.org/fhir/ValueSet/tutorial'", 1,
-				helloDic.stream().filter(r -> r instanceof ValueSet).count());
 	}
 }

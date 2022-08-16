@@ -10,6 +10,8 @@ import java.util.Arrays;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.highmed.dsf.process.tutorial.service.HelloDic;
 import org.highmed.dsf.process.tutorial.spring.config.TutorialConfig;
+import org.highmed.dsf.tools.generator.ProcessDocumentation;
+import org.hl7.fhir.r4.model.StringType;
 import org.hl7.fhir.r4.model.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,10 +35,11 @@ public class HelloDicServiceTest
 	{
 		long count = Arrays.stream(TutorialConfig.class.getMethods())
 				.filter(m -> m.getReturnType().equals(HelloDic.class)).filter(m -> Modifier.isPublic(m.getModifiers()))
-				.count();
+				.filter(m -> m.getParameterCount() == 4)
+				.filter(m -> Arrays.asList(m.getParameterTypes()).contains(boolean.class)).count();
 
 		String errorMethod = "Configuration file 'TutorialConfig.java' contains " + count
-				+ " public spring bean methods with return type 'HelloDic', expected 1";
+				+ " public spring bean methods with return type 'HelloDic' having 4 parameters (the last being of type boolean), expected 1";
 		assertEquals(errorMethod, 1, count);
 	}
 
@@ -46,8 +49,9 @@ public class HelloDicServiceTest
 		String fieldname = "loggingEnabled";
 
 		long count = Arrays.stream(TutorialConfig.class.getDeclaredFields()).filter(f -> fieldname.equals(f.getName()))
-				.filter(f -> f.getAnnotation(Value.class) != null).filter(f -> Modifier.isPrivate(f.getModifiers()))
-				.count();
+				.filter(f -> f.getType().equals(boolean.class)).filter(f -> f.getAnnotation(Value.class) != null)
+				.filter(f -> f.getAnnotation(ProcessDocumentation.class) != null)
+				.filter(f -> Modifier.isPrivate(f.getModifiers())).count();
 
 		String errorMethod = "Configuration file 'TutorialConfig.java' contains " + count
 				+ " private boolean members with name '" + fieldname
@@ -71,6 +75,8 @@ public class HelloDicServiceTest
 		Task task = new Task();
 		task.getRestriction().addRecipient().getIdentifier().setSystem(NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER)
 				.setValue("MeDIC");
+		task.addInput().setValue(new StringType("Tutorial input")).getType().addCoding()
+				.setSystem("http://highmed.org/fhir/CodeSystem/tutorial").setCode("tutorial-input");
 
 		return task;
 	}
