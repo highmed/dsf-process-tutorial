@@ -3,10 +3,7 @@
   <bpmn:process id="highmedorg_helloDic" isExecutable="true" camunda:versionTag="#{version}">
     <bpmn:extensionElements />
     <bpmn:sequenceFlow id="SequenceFlow_0bbhq2r" sourceRef="startHelloDic" targetRef="helloDic" />
-    <bpmn:endEvent id="EndEvent_0xd0x8k">
-      <bpmn:incoming>SequenceFlow_0oyvmcd</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0oyvmcd" sourceRef="helloDic" targetRef="EndEvent_0xd0x8k" />
+    <bpmn:sequenceFlow id="SequenceFlow_0oyvmcd" sourceRef="helloDic" targetRef="endHelloDic" />
     <bpmn:serviceTask id="helloDic" name="Hello Dic" camunda:class="org.highmed.dsf.process.tutorial.service.HelloDic">
       <bpmn:incoming>SequenceFlow_0bbhq2r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0oyvmcd</bpmn:outgoing>
@@ -15,8 +12,20 @@
       <bpmn:outgoing>SequenceFlow_0bbhq2r</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_1nn2wdw" />
     </bpmn:startEvent>
+    <bpmn:endEvent id="endHelloDic">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="instantiatesUri">http://highmed.org/bpe/Process/helloCos/0.1.0</camunda:inputParameter>
+          <camunda:inputParameter name="profile">http://highmed.org/fhir/StructureDefinition/task-hello-cos|0.1.0</camunda:inputParameter>
+          <camunda:inputParameter name="messageName">helloCos</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0oyvmcd</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1u9uh7y" messageRef="Message_33na25b" camunda:class="org.highmed.dsf.process.tutorial.message.HelloCosMessage" />
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="Message_1nn2wdw" name="helloDic" />
+  <bpmn:message id="Message_33na25b" name="helloCos" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="highmedorg_helloDic">
       <bpmndi:BPMNEdge id="SequenceFlow_0oyvmcd_di" bpmnElement="SequenceFlow_0oyvmcd">
@@ -27,14 +36,14 @@
         <di:waypoint x="215" y="121" />
         <di:waypoint x="280" y="121" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="EndEvent_0xd0x8k_di" bpmnElement="EndEvent_0xd0x8k">
-        <dc:Bounds x="462" y="103" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0um3ad2_di" bpmnElement="helloDic">
         <dc:Bounds x="280" y="81" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_0x5gijn_di" bpmnElement="startHelloDic">
         <dc:Bounds x="179" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0xvd8i6_di" bpmnElement="endHelloDic">
+        <dc:Bounds x="462" y="103" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

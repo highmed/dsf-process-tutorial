@@ -10,13 +10,14 @@
     </bpmn:endEvent>
     <bpmn:startEvent id="startHelloCos">
       <bpmn:outgoing>SequenceFlow_0bbhq2r</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0refdls" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0refdls" messageRef="Message_0bmy3hn" />
     </bpmn:startEvent>
     <bpmn:task id="helloCos" name="Hello Cos">
       <bpmn:incoming>SequenceFlow_0bbhq2r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0oyvmcd</bpmn:outgoing>
     </bpmn:task>
   </bpmn:process>
+  <bpmn:message id="Message_0bmy3hn" name="helloCos" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="highmedorg_helloCos">
       <bpmndi:BPMNEdge id="SequenceFlow_0oyvmcd_di" bpmnElement="SequenceFlow_0oyvmcd">

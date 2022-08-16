@@ -1,5 +1,6 @@
 package org.highmed.dsf.process.tutorial.service;
 
+import static org.highmed.dsf.bpe.ConstantsBase.BPMN_EXECUTION_VARIABLE_TARGET;
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.CODESYSTEM_TUTORIAL;
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.CODESYSTEM_TUTORIAL_VALUE_TUTORIAL_INPUT;
 
@@ -10,6 +11,8 @@ import org.highmed.dsf.bpe.delegate.AbstractServiceDelegate;
 import org.highmed.dsf.fhir.authorization.read.ReadAccessHelper;
 import org.highmed.dsf.fhir.client.FhirWebserviceClientProvider;
 import org.highmed.dsf.fhir.task.TaskHelper;
+import org.highmed.dsf.fhir.variables.Target;
+import org.highmed.dsf.fhir.variables.TargetValues;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,5 +44,8 @@ public class HelloDic extends AbstractServiceDelegate
 							.getRestriction().getRecipientFirstRep().getIdentifier().getValue(),
 					tutorialInputParameter.orElse("<no message>"));
 		}
+
+		Target target = Target.createUniDirectionalTarget("Test_COS", "Test_COS_Endpoint", "https://cos/fhir");
+		execution.setVariable(BPMN_EXECUTION_VARIABLE_TARGET, TargetValues.create(target));
 	}
 }
