@@ -2,8 +2,12 @@ package org.highmed.dsf.process.tutorial.exercise_2.service;
 
 import static org.highmed.dsf.bpe.ConstantsBase.BPMN_EXECUTION_VARIABLE_LEADING_TASK;
 import static org.highmed.dsf.bpe.ConstantsBase.NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atLeastOnce;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -20,6 +24,7 @@ import org.hl7.fhir.r4.model.StringType;
 import org.hl7.fhir.r4.model.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -126,11 +131,20 @@ public class HelloDicServiceTest
 
 		assumeTrue(optService.isPresent());
 
-		Mockito.when(execution.getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK)).thenReturn(getTask());
+		Task task = getTask();
+		Mockito.when(execution.getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK)).thenReturn(task);
+		Mockito.when(taskHelper.getFirstInputParameterStringValue(any(),
+				eq("http://highmed.org/fhir/CodeSystem/tutorial"), eq("tutorial-input")))
+				.thenReturn(Optional.of("Test"));
 
 		optService.get().execute(execution);
 
-		Mockito.verify(execution).getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK);
+		ArgumentCaptor<Task> captor = ArgumentCaptor.forClass(Task.class);
+		Mockito.verify(taskHelper).getFirstInputParameterStringValue(captor.capture(),
+				eq("http://highmed.org/fhir/CodeSystem/tutorial"), eq("tutorial-input"));
+		Mockito.verify(execution, atLeastOnce()).getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK);
+
+		assertEquals(task, captor.getValue());
 	}
 
 	private Task getTask()
@@ -138,7 +152,7 @@ public class HelloDicServiceTest
 		Task task = new Task();
 		task.getRestriction().addRecipient().getIdentifier().setSystem(NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER)
 				.setValue("MeDIC");
-		task.addInput().setValue(new StringType("Tutorial input")).getType().addCoding()
+		task.addInput().setValue(new StringType("Test")).getType().addCoding()
 				.setSystem("http://highmed.org/fhir/CodeSystem/tutorial").setCode("tutorial-input");
 
 		return task;
