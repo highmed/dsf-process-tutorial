@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1yb5vw3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1yb5vw3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <bpmn:process id="highmedorg_helloDic" isExecutable="true" camunda:versionTag="#{version}">
     <bpmn:extensionElements />
     <bpmn:sequenceFlow id="SequenceFlow_0bbhq2r" sourceRef="startHelloDic" targetRef="helloDic" />
-    <bpmn:sequenceFlow id="SequenceFlow_0oyvmcd" sourceRef="helloDic" targetRef="endHelloDic" />
+    <bpmn:sequenceFlow id="SequenceFlow_0oyvmcd" sourceRef="helloDic" targetRef="Gateway_0fqzdnc" />
     <bpmn:serviceTask id="helloDic" name="Hello Dic" camunda:class="org.highmed.dsf.process.tutorial.service.HelloDic">
       <bpmn:incoming>SequenceFlow_0bbhq2r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0oyvmcd</bpmn:outgoing>
@@ -20,9 +20,23 @@
           <camunda:inputParameter name="messageName">helloCos</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0oyvmcd</bpmn:incoming>
+      <bpmn:incoming>Flow_0qxnh3f</bpmn:incoming>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1u9uh7y" messageRef="Message_33na25b" camunda:class="org.highmed.dsf.process.tutorial.message.HelloCosMessage" />
     </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_0fqzdnc">
+      <bpmn:incoming>SequenceFlow_0oyvmcd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qxnh3f</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ro2szy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0qxnh3f" sourceRef="Gateway_0fqzdnc" targetRef="endHelloDic">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!stop}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_1d1zk1w">
+      <bpmn:incoming>Flow_0ro2szy</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0ro2szy" sourceRef="Gateway_0fqzdnc" targetRef="Event_1d1zk1w">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${stop}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmn:message id="Message_1nn2wdw" name="helloDic" />
   <bpmn:message id="Message_33na25b" name="helloCos" />
@@ -30,11 +44,20 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="highmedorg_helloDic">
       <bpmndi:BPMNEdge id="SequenceFlow_0oyvmcd_di" bpmnElement="SequenceFlow_0oyvmcd">
         <di:waypoint x="380" y="121" />
-        <di:waypoint x="462" y="121" />
+        <di:waypoint x="425" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0bbhq2r_di" bpmnElement="SequenceFlow_0bbhq2r">
         <di:waypoint x="215" y="121" />
         <di:waypoint x="280" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qxnh3f_di" bpmnElement="Flow_0qxnh3f">
+        <di:waypoint x="475" y="121" />
+        <di:waypoint x="542" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ro2szy_di" bpmnElement="Flow_0ro2szy">
+        <di:waypoint x="450" y="146" />
+        <di:waypoint x="450" y="200" />
+        <di:waypoint x="542" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0um3ad2_di" bpmnElement="helloDic">
         <dc:Bounds x="280" y="81" width="100" height="80" />
@@ -43,7 +66,13 @@
         <dc:Bounds x="179" y="103" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0xvd8i6_di" bpmnElement="endHelloDic">
-        <dc:Bounds x="462" y="103" width="36" height="36" />
+        <dc:Bounds x="542" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0fqzdnc_di" bpmnElement="Gateway_0fqzdnc" isMarkerVisible="true">
+        <dc:Bounds x="425" y="96" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1d1zk1w_di" bpmnElement="Event_1d1zk1w">
+        <dc:Bounds x="542" y="182" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

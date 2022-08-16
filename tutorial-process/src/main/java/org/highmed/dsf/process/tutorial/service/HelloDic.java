@@ -7,6 +7,8 @@ import static org.highmed.dsf.process.tutorial.ConstantsTutorial.CODESYSTEM_TUTO
 import java.util.Optional;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.value.BooleanValue;
 import org.highmed.dsf.bpe.delegate.AbstractServiceDelegate;
 import org.highmed.dsf.fhir.authorization.read.ReadAccessHelper;
 import org.highmed.dsf.fhir.client.FhirWebserviceClientProvider;
@@ -33,12 +35,11 @@ public class HelloDic extends AbstractServiceDelegate
 	@Override
 	protected void doExecute(DelegateExecution execution)
 	{
+		Optional<String> tutorialInputParameter = getTaskHelper().getFirstInputParameterStringValue(
+				getLeadingTaskFromExecutionVariables(), CODESYSTEM_TUTORIAL, CODESYSTEM_TUTORIAL_VALUE_TUTORIAL_INPUT);
+
 		if (loggingEnabled)
 		{
-			Optional<String> tutorialInputParameter = getTaskHelper().getFirstInputParameterStringValue(
-					getLeadingTaskFromExecutionVariables(), CODESYSTEM_TUTORIAL,
-					CODESYSTEM_TUTORIAL_VALUE_TUTORIAL_INPUT);
-
 			logger.info(
 					"Hello Dic from organization '{}' with message '{}'", getLeadingTaskFromExecutionVariables()
 							.getRestriction().getRecipientFirstRep().getIdentifier().getValue(),
@@ -47,5 +48,9 @@ public class HelloDic extends AbstractServiceDelegate
 
 		Target target = Target.createUniDirectionalTarget("Test_COS", "Test_COS_Endpoint", "https://cos/fhir");
 		execution.setVariable(BPMN_EXECUTION_VARIABLE_TARGET, TargetValues.create(target));
+
+		BooleanValue stop = tutorialInputParameter.map("not-cos"::equals).map(Variables::booleanValue)
+				.orElse(Variables.booleanValue(false));
+		execution.setVariable("stop", stop);
 	}
 }
