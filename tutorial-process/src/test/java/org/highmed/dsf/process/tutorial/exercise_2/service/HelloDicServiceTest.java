@@ -2,70 +2,133 @@ package org.highmed.dsf.process.tutorial.exercise_2.service;
 
 import static org.highmed.dsf.bpe.ConstantsBase.BPMN_EXECUTION_VARIABLE_LEADING_TASK;
 import static org.highmed.dsf.bpe.ConstantsBase.NAMINGSYSTEM_HIGHMED_ORGANIZATION_IDENTIFIER;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
-import java.lang.reflect.Modifier;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.highmed.dsf.fhir.authorization.read.ReadAccessHelper;
+import org.highmed.dsf.fhir.client.FhirWebserviceClientProvider;
+import org.highmed.dsf.fhir.task.TaskHelper;
 import org.highmed.dsf.process.tutorial.service.HelloDic;
-import org.highmed.dsf.process.tutorial.spring.config.TutorialConfig;
-import org.highmed.dsf.tools.generator.ProcessDocumentation;
 import org.hl7.fhir.r4.model.StringType;
 import org.hl7.fhir.r4.model.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Value;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HelloDicServiceTest
 {
 	@Mock
+	private FhirWebserviceClientProvider clientProvider;
+
+	@Mock
+	private TaskHelper taskHelper;
+
+	@Mock
+	private ReadAccessHelper readAccessHelper;
+
+	@Mock
 	private DelegateExecution execution;
 
-	@InjectMocks
-	private HelloDic service;
-
-	@Test
-	public void testHelloDicServiceAvailable()
+	private Optional<Constructor<HelloDic>> getConstructor(Class<?>... args)
 	{
-		long count = Arrays.stream(TutorialConfig.class.getMethods())
-				.filter(m -> m.getReturnType().equals(HelloDic.class)).filter(m -> Modifier.isPublic(m.getModifiers()))
-				.filter(m -> m.getParameterCount() == 4)
-				.filter(m -> Arrays.asList(m.getParameterTypes()).contains(boolean.class)).count();
-
-		String errorMethod = "Configuration file 'TutorialConfig.java' contains " + count
-				+ " public spring bean methods with return type 'HelloDic' having 4 parameters (the last being of type boolean), expected 1";
-		assertEquals(errorMethod, 1, count);
+		try
+		{
+			return Optional.of(HelloDic.class.getConstructor(args));
+		}
+		catch (NoSuchMethodException e)
+		{
+			return Optional.empty();
+		}
+		catch (SecurityException e)
+		{
+			throw e;
+		}
 	}
 
 	@Test
-	public void testLogParameterAvailable()
+	public void testHelloDicConstructorWithAdditionalBooleanParameterExists() throws Exception
 	{
-		String fieldname = "loggingEnabled";
+		// not testing all parameter permutations
+		Optional<Constructor<HelloDic>> constructor = getConstructor(FhirWebserviceClientProvider.class,
+				TaskHelper.class, ReadAccessHelper.class, boolean.class);
+		if (constructor.isEmpty())
+			constructor = getConstructor(boolean.class, FhirWebserviceClientProvider.class, TaskHelper.class,
+					ReadAccessHelper.class);
+		if (constructor.isEmpty())
+			constructor = getConstructor(FhirWebserviceClientProvider.class, boolean.class, TaskHelper.class,
+					ReadAccessHelper.class);
+		if (constructor.isEmpty())
+			constructor = getConstructor(FhirWebserviceClientProvider.class, TaskHelper.class, boolean.class,
+					ReadAccessHelper.class);
 
-		long count = Arrays.stream(TutorialConfig.class.getDeclaredFields()).filter(f -> fieldname.equals(f.getName()))
-				.filter(f -> f.getType().equals(boolean.class)).filter(f -> f.getAnnotation(Value.class) != null)
-				.filter(f -> f.getAnnotation(ProcessDocumentation.class) != null)
-				.filter(f -> Modifier.isPrivate(f.getModifiers())).count();
+		if (constructor.isEmpty())
+		{
+			String errorMessage = "One public constructor in class " + HelloDic.class.getSimpleName()
+					+ " with parameters (" + FhirWebserviceClientProvider.class.getSimpleName() + ", "
+					+ TaskHelper.class.getSimpleName() + ", " + ReadAccessHelper.class.getSimpleName()
+					+ ", boolean) expected";
+			fail(errorMessage);
+		}
+	}
 
-		String errorMethod = "Configuration file 'TutorialConfig.java' contains " + count
-				+ " private boolean members with name '" + fieldname
-				+ "' and annotations [@Value, @ProcessDocumentation], expected 1";
-
-		assertEquals(errorMethod, 1, count);
+	private Optional<HelloDic> getInstance(List<Class<?>> types, Object... args)
+	{
+		try
+		{
+			return Optional.of(HelloDic.class.getConstructor(types.toArray(Class[]::new))).map(c ->
+			{
+				try
+				{
+					return c.newInstance(args);
+				}
+				catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e)
+				{
+					throw new RuntimeException(e);
+				}
+			});
+		}
+		catch (NoSuchMethodException e)
+		{
+			return Optional.empty();
+		}
+		catch (SecurityException e)
+		{
+			throw e;
+		}
 	}
 
 	@Test
-	public void testHelloDicServiceValid() throws Exception
+	public void testHelloDicServiceDoExecute() throws Exception
 	{
+		// not trying all parameter permutations
+		Optional<HelloDic> optService = getInstance(Arrays.asList(FhirWebserviceClientProvider.class, TaskHelper.class,
+				ReadAccessHelper.class, boolean.class), clientProvider, taskHelper, readAccessHelper, true);
+		if (optService.isEmpty())
+			optService = getInstance(Arrays.asList(boolean.class, FhirWebserviceClientProvider.class, TaskHelper.class,
+					ReadAccessHelper.class), true, clientProvider, taskHelper, readAccessHelper);
+		if (optService.isEmpty())
+			optService = getInstance(Arrays.asList(FhirWebserviceClientProvider.class, boolean.class, TaskHelper.class,
+					ReadAccessHelper.class), clientProvider, true, taskHelper, readAccessHelper);
+		if (optService.isEmpty())
+			optService = getInstance(Arrays.asList(FhirWebserviceClientProvider.class, TaskHelper.class, boolean.class,
+					ReadAccessHelper.class), clientProvider, taskHelper, true, readAccessHelper);
+
+		assumeTrue(optService.isPresent());
+
 		Mockito.when(execution.getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK)).thenReturn(getTask());
 
-		service.execute(execution);
+		optService.get().execute(execution);
 
 		Mockito.verify(execution).getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK);
 	}
