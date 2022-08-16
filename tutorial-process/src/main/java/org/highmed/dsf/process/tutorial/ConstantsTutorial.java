@@ -26,7 +26,7 @@ public interface ConstantsTutorial
 	String PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION = PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI
 			+ VERSION;
 	String PROFILE_TUTORIAL_TASK_HELLO_COS_MESSAGE_NAME = "helloCos";
-	
+
 	String CODESYSTEM_TUTORIAL = "http://highmed.org/fhir/CodeSystem/tutorial";
 	String CODESYSTEM_TUTORIAL_VALUE_TUTORIAL_INPUT = "tutorial-input";
 }
