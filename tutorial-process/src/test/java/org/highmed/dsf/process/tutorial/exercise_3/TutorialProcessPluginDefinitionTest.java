@@ -2,7 +2,6 @@ package org.highmed.dsf.process.tutorial.exercise_3;
 
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_AND_LATEST_VERSION;
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_MESSAGE_NAME;
-import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI;
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION;
 import static org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition.VERSION;
 import static org.junit.Assert.assertEquals;
@@ -146,6 +145,11 @@ public class TutorialProcessPluginDefinitionTest
 		String filename = "bpe/hello-cos.bpmn";
 		String processId = "highmedorg_helloCos";
 
+		boolean cosProcessConfigured = new TutorialProcessPluginDefinition().getBpmnFiles()
+				.anyMatch(f -> filename.equals(f));
+		assertTrue("Process '" + processId + "' from file '" + filename + "' not configured in "
+				+ TutorialProcessPluginDefinition.class.getSimpleName(), cosProcessConfigured);
+
 		BpmnModelInstance model = Bpmn
 				.readModelFromStream(this.getClass().getClassLoader().getResourceAsStream(filename));
 		assertNotNull(model);
@@ -180,17 +184,17 @@ public class TutorialProcessPluginDefinitionTest
 				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_COS + "/" + TutorialProcessPluginDefinition.VERSION,
 				s -> ResourceProvider.empty()).collect(Collectors.toList());
 
+		String processUrl = "http://highmed.org/bpe/Process/helloCos";
 		List<ActivityDefinition> activityDefinitions = helloCos.stream().filter(r -> r instanceof ActivityDefinition)
-				.map(r -> (ActivityDefinition) r)
-				.filter(a -> PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI.equals(a.getUrl()))
+				.map(r -> (ActivityDefinition) r).filter(a -> processUrl.equals(a.getUrl()))
 				.filter(a -> VERSION.equals(a.getVersion())).collect(Collectors.toList());
 
-		String errorActivityDefinition = "Process is missing ActivityDefinition with url '"
-				+ PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI + "' and version '" + VERSION + "'";
+		String errorActivityDefinition = "Process is missing ActivityDefinition with url '" + processUrl
+				+ "' and version '" + VERSION + "'";
 		assertEquals(errorActivityDefinition, 1, activityDefinitions.size());
 
-		String errorMessageRequester = "ActivityDefinition with url '" + PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI
-				+ "' and version '" + VERSION + "' is missing expected requester extension";
+		String errorMessageRequester = "ActivityDefinition with url '" + processUrl + "' and version '" + VERSION
+				+ "' is missing expected requester extension";
 		assertEquals(errorMessageRequester, 1, activityDefinitions.get(0).getExtension().stream()
 				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization"
 						.equals(e.getUrl()))
@@ -204,8 +208,8 @@ public class TutorialProcessPluginDefinitionTest
 				.filter(i -> "http://highmed.org/sid/organization-identifier".equals(i.getSystem()))
 				.filter(i -> "Test_DIC".equals(i.getValue())).count());
 
-		String errorMessageRecipient = "ActivityDefinition with url '" + PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI
-				+ "' and version '" + VERSION + "' is missing expected recipient extension";
+		String errorMessageRecipient = "ActivityDefinition with url '" + processUrl + "' and version '" + VERSION
+				+ "' is missing expected recipient extension";
 		assertEquals(errorMessageRecipient, 1, activityDefinitions.get(0).getExtension().stream()
 				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization"
 						.equals(e.getUrl()))
