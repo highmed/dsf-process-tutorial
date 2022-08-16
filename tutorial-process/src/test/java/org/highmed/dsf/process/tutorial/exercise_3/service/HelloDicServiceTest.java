@@ -20,7 +20,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.highmed.dsf.fhir.authorization.read.ReadAccessHelper;
 import org.highmed.dsf.fhir.client.FhirWebserviceClientProvider;
 import org.highmed.dsf.fhir.task.TaskHelper;
-import org.highmed.dsf.fhir.variables.Target;
+import org.highmed.dsf.fhir.variables.TargetValues.TargetValue;
 import org.highmed.dsf.process.tutorial.service.HelloDic;
 import org.hl7.fhir.r4.model.StringType;
 import org.hl7.fhir.r4.model.Task;
@@ -147,11 +147,11 @@ public class HelloDicServiceTest
 		Mockito.verify(execution, atLeastOnce()).getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK);
 		assertEquals(task, captor.getValue());
 
-		ArgumentCaptor<Target> targetArgumentCaptor = ArgumentCaptor.forClass(Target.class);
-		Mockito.verify(execution).setVariable(eq(BPMN_EXECUTION_VARIABLE_TARGET), targetArgumentCaptor);
-		assertEquals("Test_COS", targetArgumentCaptor.getValue().getOrganizationIdentifierValue());
-		assertEquals("Test_COS_Endpoint", targetArgumentCaptor.getValue().getEndpointIdentifierValue());
-		assertEquals("https://cos/fhir", targetArgumentCaptor.getValue().getEndpointUrl());
+		ArgumentCaptor<TargetValue> targetArgumentCaptor = ArgumentCaptor.forClass(TargetValue.class);
+		Mockito.verify(execution).setVariable(eq(BPMN_EXECUTION_VARIABLE_TARGET), targetArgumentCaptor.capture());
+		assertEquals("Test_COS", targetArgumentCaptor.getValue().getValue().getOrganizationIdentifierValue());
+		assertEquals("Test_COS_Endpoint", targetArgumentCaptor.getValue().getValue().getEndpointIdentifierValue());
+		assertEquals("https://cos/fhir", targetArgumentCaptor.getValue().getValue().getEndpointUrl());
 	}
 
 	private Task getTask()
