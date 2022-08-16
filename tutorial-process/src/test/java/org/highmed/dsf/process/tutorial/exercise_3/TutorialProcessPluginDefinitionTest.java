@@ -50,28 +50,26 @@ public class TutorialProcessPluginDefinitionTest
 		String filename = "bpe/hello-dic.bpmn";
 		String processId = "highmedorg_helloDic";
 
-		BpmnModelInstance model = Bpmn.readModelFromStream(
-				this.getClass().getClassLoader().getResourceAsStream(filename));
+		BpmnModelInstance model = Bpmn
+				.readModelFromStream(this.getClass().getClassLoader().getResourceAsStream(filename));
 		assertNotNull(model);
 
 		List<Process> processes = model.getModelElementsByType(Process.class).stream()
 				.filter(p -> processId.equals(p.getId())).collect(Collectors.toList());
 		assertEquals(1, processes.size());
 
-		String errorServiceTask =
-				"Process '" + processId + "' in file '" + filename + "' is missing implementation of class '"
-						+ HelloDic.class.getName() + "'";
-		assertTrue(errorServiceTask,
-				processes.get(0).getChildElementsByType(ServiceTask.class).stream().filter(Objects::nonNull)
-						.map(ServiceTask::getCamundaClass).anyMatch(HelloDic.class.getName()::equals));
+		String errorServiceTask = "Process '" + processId + "' in file '" + filename
+				+ "' is missing implementation of class '" + HelloDic.class.getName() + "'";
+		assertTrue(errorServiceTask, processes.get(0).getChildElementsByType(ServiceTask.class).stream()
+				.filter(Objects::nonNull).map(ServiceTask::getCamundaClass).anyMatch(HelloDic.class.getName()::equals));
 
 		List<MessageEventDefinition> messageEndEvent = processes.get(0).getChildElementsByType(EndEvent.class).stream()
 				.filter(Objects::nonNull)
 				.flatMap(e -> e.getChildElementsByType(MessageEventDefinition.class).stream().filter(Objects::nonNull))
 				.collect(Collectors.toList());
 
-		String errorMessageEndEvent =
-				"Process '" + processId + "' in file '" + filename + "' should end with a MessageEndEvent";
+		String errorMessageEndEvent = "Process '" + processId + "' in file '" + filename
+				+ "' should end with a MessageEndEvent";
 		assertEquals(errorMessageEndEvent, 1, messageEndEvent.size());
 
 		String errorMessageEndEventImplementation = "Process '" + processId + "' in file '" + filename
@@ -92,23 +90,23 @@ public class TutorialProcessPluginDefinitionTest
 		String errorMessageEndEventInputUri = "Process '" + processId + "' in file '" + filename
 				+ "' is missing a MessageEndEvent input parameter with name 'instantiatesUri' and value '"
 				+ PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION + "'";
-		assertTrue(errorMessageEndEventInputUri, inputParameters.stream().anyMatch(
-				i -> "instantiatesUri".equals(i.getCamundaName())
+		assertTrue(errorMessageEndEventInputUri,
+				inputParameters.stream().anyMatch(i -> "instantiatesUri".equals(i.getCamundaName())
 						&& PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION.equals(i.getTextContent())));
 
 		String errorMessageEndEventMessageName = "Process '" + processId + "' in file '" + filename
 				+ "' is missing a MessageEndEvent input parameter with name 'messageName' and value '"
 				+ PROFILE_TUTORIAL_TASK_HELLO_COS_MESSAGE_NAME + "'";
-		assertTrue(errorMessageEndEventMessageName, inputParameters.stream().anyMatch(
-				i -> "messageName".equals(i.getCamundaName()) && PROFILE_TUTORIAL_TASK_HELLO_COS_MESSAGE_NAME.equals(
-						i.getTextContent())));
+		assertTrue(errorMessageEndEventMessageName,
+				inputParameters.stream().anyMatch(i -> "messageName".equals(i.getCamundaName())
+						&& PROFILE_TUTORIAL_TASK_HELLO_COS_MESSAGE_NAME.equals(i.getTextContent())));
 
 		String errorMessageEndEventProfile = "Process '" + processId + "' in file '" + filename
 				+ "' is missing a MessageEndEvent input parameter with name 'profile' and value '"
 				+ PROFILE_TUTORIAL_TASK_HELLO_COS_AND_LATEST_VERSION + "'";
-		assertTrue(errorMessageEndEventProfile, inputParameters.stream().anyMatch(
-				i -> "profile".equals(i.getCamundaName()) && PROFILE_TUTORIAL_TASK_HELLO_COS_AND_LATEST_VERSION.equals(
-						i.getTextContent())));
+		assertTrue(errorMessageEndEventProfile,
+				inputParameters.stream().anyMatch(i -> "profile".equals(i.getCamundaName())
+						&& PROFILE_TUTORIAL_TASK_HELLO_COS_AND_LATEST_VERSION.equals(i.getTextContent())));
 	}
 
 	@Test
@@ -127,9 +125,8 @@ public class TutorialProcessPluginDefinitionTest
 				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + TutorialProcessPluginDefinition.VERSION,
 				s -> ResourceProvider.empty()).collect(Collectors.toList());
 
-		String errorCodeSystem =
-				"Process is missing CodeSystem with url '" + codeSystemUrl + "' and concept '" + codeSystemCode
-						+ "' with type 'string'";
+		String errorCodeSystem = "Process is missing CodeSystem with url '" + codeSystemUrl + "' and concept '"
+				+ codeSystemCode + "' with type 'string'";
 		assertEquals(errorCodeSystem, 1, helloDic.stream().filter(r -> r instanceof CodeSystem).map(r -> (CodeSystem) r)
 				.filter(c -> codeSystemUrl.equals(c.getUrl()))
 				.filter(c -> c.getConcept().stream().anyMatch(con -> codeSystemCode.equals(con.getCode()))).count());
@@ -149,8 +146,8 @@ public class TutorialProcessPluginDefinitionTest
 		String filename = "bpe/hello-cos.bpmn";
 		String processId = "highmedorg_helloCos";
 
-		BpmnModelInstance model = Bpmn.readModelFromStream(
-				this.getClass().getClassLoader().getResourceAsStream(filename));
+		BpmnModelInstance model = Bpmn
+				.readModelFromStream(this.getClass().getClassLoader().getResourceAsStream(filename));
 		assertNotNull(model);
 
 		List<Process> processes = model.getModelElementsByType(Process.class).stream()
@@ -162,8 +159,8 @@ public class TutorialProcessPluginDefinitionTest
 				.flatMap(e -> e.getChildElementsByType(MessageEventDefinition.class).stream().filter(Objects::nonNull))
 				.collect(Collectors.toList());
 
-		String errorStartEvent =
-				"Process '" + processId + "' in file '" + filename + "' is missing a MessageStartEvent";
+		String errorStartEvent = "Process '" + processId + "' in file '" + filename
+				+ "' is missing a MessageStartEvent";
 		assertEquals(errorStartEvent, 1, messageStartEvent.size());
 
 		String errorStartEventMessageName = "Process '" + processId + "' in file '" + filename
@@ -188,38 +185,37 @@ public class TutorialProcessPluginDefinitionTest
 				.filter(a -> PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI.equals(a.getUrl()))
 				.filter(a -> VERSION.equals(a.getVersion())).collect(Collectors.toList());
 
-		String errorActivityDefinition =
-				"Process is missing ActivityDefinition with url '" + PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI
-						+ "' and version '" + VERSION + "'";
+		String errorActivityDefinition = "Process is missing ActivityDefinition with url '"
+				+ PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI + "' and version '" + VERSION + "'";
 		assertEquals(errorActivityDefinition, 1, activityDefinitions.size());
 
-		String errorMessageRequester =
-				"ActivityDefinition with url '" + PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI + "' and version '"
-						+ VERSION + "' is missing expected requester extension";
+		String errorMessageRequester = "ActivityDefinition with url '" + PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI
+				+ "' and version '" + VERSION + "' is missing expected requester extension";
 		assertEquals(errorMessageRequester, 1, activityDefinitions.get(0).getExtension().stream()
-				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization".equals(
-						e.getUrl())).flatMap(e -> e.getExtension().stream()).filter(e -> "requester".equals(e.getUrl()))
+				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization"
+						.equals(e.getUrl()))
+				.flatMap(e -> e.getExtension().stream()).filter(e -> "requester".equals(e.getUrl()))
 				.map(Extension::getValue).filter(v -> v instanceof Coding).map(v -> (Coding) v)
 				.filter(c -> "http://highmed.org/fhir/CodeSystem/process-authorization".equals(c.getSystem()))
 				.filter(c -> "REMOTE_ORGANIZATION".equals(c.getCode())).flatMap(c -> c.getExtension().stream())
-				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization-organization".equals(
-						e.getUrl())).map(Extension::getValue).filter(v -> v instanceof Identifier)
-				.map(i -> (Identifier) i)
+				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization-organization"
+						.equals(e.getUrl()))
+				.map(Extension::getValue).filter(v -> v instanceof Identifier).map(i -> (Identifier) i)
 				.filter(i -> "http://highmed.org/sid/organization-identifier".equals(i.getSystem()))
 				.filter(i -> "Test_DIC".equals(i.getValue())).count());
 
-		String errorMessageRecipient =
-				"ActivityDefinition with url '" + PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI + "' and version '"
-						+ VERSION + "' is missing expected recipient extension";
+		String errorMessageRecipient = "ActivityDefinition with url '" + PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI
+				+ "' and version '" + VERSION + "' is missing expected recipient extension";
 		assertEquals(errorMessageRecipient, 1, activityDefinitions.get(0).getExtension().stream()
-				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization".equals(
-						e.getUrl())).flatMap(e -> e.getExtension().stream()).filter(e -> "recipient".equals(e.getUrl()))
+				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization"
+						.equals(e.getUrl()))
+				.flatMap(e -> e.getExtension().stream()).filter(e -> "recipient".equals(e.getUrl()))
 				.map(Extension::getValue).filter(v -> v instanceof Coding).map(v -> (Coding) v)
 				.filter(c -> "http://highmed.org/fhir/CodeSystem/process-authorization".equals(c.getSystem()))
 				.filter(c -> "LOCAL_ORGANIZATION".equals(c.getCode())).flatMap(c -> c.getExtension().stream())
-				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization-organization".equals(
-						e.getUrl())).map(Extension::getValue).filter(v -> v instanceof Identifier)
-				.map(i -> (Identifier) i)
+				.filter(e -> "http://highmed.org/fhir/StructureDefinition/extension-process-authorization-organization"
+						.equals(e.getUrl()))
+				.map(Extension::getValue).filter(v -> v instanceof Identifier).map(i -> (Identifier) i)
 				.filter(i -> "http://highmed.org/sid/organization-identifier".equals(i.getSystem()))
 				.filter(i -> "Test_COS".equals(i.getValue())).count());
 
@@ -228,9 +224,8 @@ public class TutorialProcessPluginDefinitionTest
 				.map(r -> (StructureDefinition) r).filter(s -> taskHelloCosUrl.equals(s.getUrl()))
 				.filter(s -> VERSION.equals(s.getVersion())).collect(Collectors.toList());
 
-		String errorStructureDefinition =
-				"Process is missing StructureDefinition with url '" + taskHelloCosUrl + "' and version '" + VERSION
-						+ "'";
+		String errorStructureDefinition = "Process is missing StructureDefinition with url '" + taskHelloCosUrl
+				+ "' and version '" + VERSION + "'";
 		assertEquals(errorStructureDefinition, 1, structureDefinitions.size());
 
 		assertEquals(2, helloCos.size());

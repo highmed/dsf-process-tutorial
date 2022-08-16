@@ -80,11 +80,10 @@ public class HelloDicServiceTest
 
 		if (constructor.isEmpty())
 		{
-			String errorMessage =
-					"One public constructor in class " + HelloDic.class.getSimpleName() + " with parameters ("
-							+ FhirWebserviceClientProvider.class.getSimpleName() + ", "
-							+ TaskHelper.class.getSimpleName() + ", " + ReadAccessHelper.class.getSimpleName()
-							+ ", boolean) expected";
+			String errorMessage = "One public constructor in class " + HelloDic.class.getSimpleName()
+					+ " with parameters (" + FhirWebserviceClientProvider.class.getSimpleName() + ", "
+					+ TaskHelper.class.getSimpleName() + ", " + ReadAccessHelper.class.getSimpleName()
+					+ ", boolean) expected";
 			fail(errorMessage);
 		}
 	}
@@ -93,12 +92,14 @@ public class HelloDicServiceTest
 	{
 		try
 		{
-			return Optional.of(HelloDic.class.getConstructor(types.toArray(Class[]::new))).map(c -> {
+			return Optional.of(HelloDic.class.getConstructor(types.toArray(Class[]::new))).map(c ->
+			{
 				try
 				{
 					return c.newInstance(args);
 				}
-				catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+				catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e)
 				{
 					throw new RuntimeException(e);
 				}
@@ -118,9 +119,8 @@ public class HelloDicServiceTest
 	public void testHelloDicServiceDoExecute() throws Exception
 	{
 		// not trying all parameter permutations
-		Optional<HelloDic> optService = getInstance(
-				Arrays.asList(FhirWebserviceClientProvider.class, TaskHelper.class, ReadAccessHelper.class,
-						boolean.class), clientProvider, taskHelper, readAccessHelper, true);
+		Optional<HelloDic> optService = getInstance(Arrays.asList(FhirWebserviceClientProvider.class, TaskHelper.class,
+				ReadAccessHelper.class, boolean.class), clientProvider, taskHelper, readAccessHelper, true);
 		if (optService.isEmpty())
 			optService = getInstance(Arrays.asList(boolean.class, FhirWebserviceClientProvider.class, TaskHelper.class,
 					ReadAccessHelper.class), true, clientProvider, taskHelper, readAccessHelper);
@@ -135,16 +135,15 @@ public class HelloDicServiceTest
 
 		Task task = getTask();
 		Mockito.when(execution.getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK)).thenReturn(task);
-		Mockito.when(
-				taskHelper.getFirstInputParameterStringValue(any(), eq("http://highmed.org/fhir/CodeSystem/tutorial"),
-						eq("tutorial-input"))).thenReturn(Optional.of("Test"));
+		Mockito.when(taskHelper.getFirstInputParameterStringValue(any(),
+				eq("http://highmed.org/fhir/CodeSystem/tutorial"), eq("tutorial-input")))
+				.thenReturn(Optional.of("Test"));
 
 		optService.get().execute(execution);
 
 		ArgumentCaptor<Task> captor = ArgumentCaptor.forClass(Task.class);
-		Mockito.verify(taskHelper)
-				.getFirstInputParameterStringValue(captor.capture(), eq("http://highmed.org/fhir/CodeSystem/tutorial"),
-						eq("tutorial-input"));
+		Mockito.verify(taskHelper).getFirstInputParameterStringValue(captor.capture(),
+				eq("http://highmed.org/fhir/CodeSystem/tutorial"), eq("tutorial-input"));
 		Mockito.verify(execution, atLeastOnce()).getVariable(BPMN_EXECUTION_VARIABLE_LEADING_TASK);
 		assertEquals(task, captor.getValue());
 

@@ -32,8 +32,9 @@ public class TutorialConfigTest
 	public void testCosMessageBeanDefined() throws Exception
 	{
 		long count = Arrays.stream(TutorialConfig.class.getMethods())
-				.filter(m -> HelloCosMessage.class.equals(m.getReturnType())).filter(m -> Modifier.isPublic(m.getModifiers()))
-				.filter(m -> m.getAnnotation(Bean.class) != null).count();
+				.filter(m -> HelloCosMessage.class.equals(m.getReturnType()))
+				.filter(m -> Modifier.isPublic(m.getModifiers())).filter(m -> m.getAnnotation(Bean.class) != null)
+				.count();
 
 		String errorMethod = "One public spring bean methods with return type " + HelloCosMessage.class.getSimpleName()
 				+ " and annotation " + Bean.class.getSimpleName() + " expected in "
