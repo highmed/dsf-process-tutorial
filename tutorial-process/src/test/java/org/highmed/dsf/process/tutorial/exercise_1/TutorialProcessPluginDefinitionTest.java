@@ -25,7 +25,7 @@ import ca.uhn.fhir.context.FhirContext;
 public class TutorialProcessPluginDefinitionTest
 {
 	@Test
-	public void testBpmnProcessFile() throws Exception
+	public void testHelloDicBpmnProcessFile() throws Exception
 	{
 		String filename = "bpe/hello-dic.bpmn";
 		String processId = "highmedorg_helloDic";
@@ -45,7 +45,7 @@ public class TutorialProcessPluginDefinitionTest
 	}
 
 	@Test
-	public void testProcessPluginDefinition() throws Exception
+	public void testHelloDicResources() throws Exception
 	{
 		ProcessPluginDefinition definition = new TutorialProcessPluginDefinition();
 		ResourceProvider provider = definition.getResourceProvider(FhirContext.forR4(), getClass().getClassLoader(),
