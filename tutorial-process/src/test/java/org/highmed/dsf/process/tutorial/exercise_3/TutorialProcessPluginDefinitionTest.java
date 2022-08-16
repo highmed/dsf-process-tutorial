@@ -1,7 +1,9 @@
 package org.highmed.dsf.process.tutorial.exercise_3;
 
+import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS;
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_AND_LATEST_VERSION;
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_MESSAGE_NAME;
+import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI;
 import static org.highmed.dsf.process.tutorial.ConstantsTutorial.PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION;
 import static org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition.VERSION;
 import static org.junit.Assert.assertEquals;
@@ -88,10 +90,10 @@ public class TutorialProcessPluginDefinitionTest
 
 		String errorMessageEndEventInputUri = "Process '" + processId + "' in file '" + filename
 				+ "' is missing a MessageEndEvent input parameter with name 'instantiatesUri' and value '"
-				+ PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION + "'";
+				+ PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI + "#{version}'";
 		assertTrue(errorMessageEndEventInputUri,
 				inputParameters.stream().anyMatch(i -> "instantiatesUri".equals(i.getCamundaName())
-						&& PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION.equals(i.getTextContent())));
+						&& (PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI + "#{version}").equals(i.getTextContent())));
 
 		String errorMessageEndEventMessageName = "Process '" + processId + "' in file '" + filename
 				+ "' is missing a MessageEndEvent input parameter with name 'messageName' and value '"
@@ -102,10 +104,10 @@ public class TutorialProcessPluginDefinitionTest
 
 		String errorMessageEndEventProfile = "Process '" + processId + "' in file '" + filename
 				+ "' is missing a MessageEndEvent input parameter with name 'profile' and value '"
-				+ PROFILE_TUTORIAL_TASK_HELLO_COS_AND_LATEST_VERSION + "'";
+				+ PROFILE_TUTORIAL_TASK_HELLO_COS + "|#{version}'";
 		assertTrue(errorMessageEndEventProfile,
 				inputParameters.stream().anyMatch(i -> "profile".equals(i.getCamundaName())
-						&& PROFILE_TUTORIAL_TASK_HELLO_COS_AND_LATEST_VERSION.equals(i.getTextContent())));
+						&& (PROFILE_TUTORIAL_TASK_HELLO_COS + "|#{version}").equals(i.getTextContent())));
 	}
 
 	@Test
