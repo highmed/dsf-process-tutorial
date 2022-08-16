@@ -16,6 +16,7 @@ import org.highmed.dsf.bpe.ProcessPluginDefinition;
 import org.highmed.dsf.fhir.resources.ResourceProvider;
 import org.highmed.dsf.process.tutorial.ConstantsTutorial;
 import org.highmed.dsf.process.tutorial.TutorialProcessPluginDefinition;
+import org.highmed.dsf.process.tutorial.service.HelloDic;
 import org.hl7.fhir.r4.model.CodeSystem;
 import org.hl7.fhir.r4.model.MetadataResource;
 import org.hl7.fhir.r4.model.ValueSet;
@@ -27,11 +28,10 @@ import ca.uhn.fhir.context.FhirContext;
 public class TutorialProcessPluginDefinitionTest
 {
 	@Test
-	public void testBpmnProcessFile() throws Exception
+	public void testHelloDicBpmnProcessFile() throws Exception
 	{
 		String filename = "bpe/hello-dic.bpmn";
 		String processId = "highmedorg_helloDic";
-		String classname = "org.highmed.dsf.process.tutorial.service.HelloDic";
 
 		BpmnModelInstance model = Bpmn
 				.readModelFromStream(this.getClass().getClassLoader().getResourceAsStream(filename));
@@ -42,13 +42,13 @@ public class TutorialProcessPluginDefinitionTest
 		assertEquals(1, processes.size());
 
 		String errorServiceTask = "Process '" + processId + "' in file '" + filename
-				+ "' is missing implementation of class '" + classname + "'";
+				+ "' is missing implementation of class '" + HelloDic.class.getName() + "'";
 		assertTrue(errorServiceTask, processes.get(0).getChildElementsByType(ServiceTask.class).stream()
-				.filter(Objects::nonNull).map(ServiceTask::getCamundaClass).anyMatch(classname::equals));
+				.filter(Objects::nonNull).map(ServiceTask::getCamundaClass).anyMatch(HelloDic.class.getName()::equals));
 	}
 
 	@Test
-	public void testProcessPluginDefinition() throws Exception
+	public void testHelloDicResources() throws Exception
 	{
 		String codeSystemUrl = "http://highmed.org/fhir/CodeSystem/tutorial";
 		String codeSystemCode = "tutorial-input";
