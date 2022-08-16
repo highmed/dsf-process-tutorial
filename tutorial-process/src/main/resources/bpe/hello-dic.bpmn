@@ -15,8 +15,8 @@
     <bpmn:endEvent id="endHelloDic">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="instantiatesUri">http://highmed.org/bpe/Process/helloCos/0.1.0</camunda:inputParameter>
-          <camunda:inputParameter name="profile">http://highmed.org/fhir/StructureDefinition/task-hello-cos|0.1.0</camunda:inputParameter>
+          <camunda:inputParameter name="instantiatesUri">http://highmed.org/bpe/Process/helloCos/#{version}</camunda:inputParameter>
+          <camunda:inputParameter name="profile">http://highmed.org/fhir/StructureDefinition/task-hello-cos|#{version}</camunda:inputParameter>
           <camunda:inputParameter name="messageName">helloCos</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
