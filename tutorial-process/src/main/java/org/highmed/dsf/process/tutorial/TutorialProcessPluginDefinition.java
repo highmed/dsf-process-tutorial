@@ -9,8 +9,10 @@ import java.util.stream.Stream;
 import org.highmed.dsf.bpe.ProcessPluginDefinition;
 import org.highmed.dsf.fhir.resources.AbstractResource;
 import org.highmed.dsf.fhir.resources.ActivityDefinitionResource;
+import org.highmed.dsf.fhir.resources.CodeSystemResource;
 import org.highmed.dsf.fhir.resources.ResourceProvider;
 import org.highmed.dsf.fhir.resources.StructureDefinitionResource;
+import org.highmed.dsf.fhir.resources.ValueSetResource;
 import org.highmed.dsf.process.tutorial.spring.config.TutorialConfig;
 import org.springframework.core.env.PropertyResolver;
 
@@ -56,11 +58,13 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 			PropertyResolver resolver)
 	{
 		var aHelloProcess = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-dic.xml");
+		var cTutorial = CodeSystemResource.file("fhir/CodeSystem/tutorial.xml");
 		var tHelloProcess = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-dic.xml");
+		var vTutorial = ValueSetResource.file("fhir/ValueSet/tutorial.xml");
 
 		Map<String, List<AbstractResource>> resourcesByProcessKeyAndVersion = Map.of(
 				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + VERSION,
-				Arrays.asList(aHelloProcess, tHelloProcess));
+				Arrays.asList(aHelloProcess, cTutorial, tHelloProcess, vTutorial));
 
 		return ResourceProvider.read(VERSION, RELEASE_DATE,
 				() -> fhirContext.newXmlParser().setStripVersionsFromReferences(false), classLoader, resolver,

@@ -256,6 +256,8 @@ services:
       ORG_HIGHMED_DSF_BPE_DB_USER_CAMUNDA_USERNAME: dic_camunda_server_user
       ORG_HIGHMED_DSF_BPE_FHIR_SERVER_ORGANIZATION_IDENTIFIER_VALUE: Test_DIC
       ORG_HIGHMED_DSF_BPE_FHIR_SERVER_BASE_URL: https://dic/fhir
+
+      ORG_HIGHMED_DSF_PROCESS_TUTORIAL_LOGGINGENABLED: 'true'
     networks:
       dic-bpe-frontend:
       dic-bpe-backend:
