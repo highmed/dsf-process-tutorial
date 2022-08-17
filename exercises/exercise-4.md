@@ -1,2 +1,2 @@
-# Exercise 1 - Hello Gateway
+# Exercise 1 - Exclusive Gateway
 TODO

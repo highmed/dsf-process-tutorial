@@ -1,2 +1,2 @@
-# Exercise 1 - Hello Parameter
+# Exercise 1 - Input Parameter
 TODO

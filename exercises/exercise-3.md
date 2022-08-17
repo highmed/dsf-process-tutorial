@@ -1,2 +1,2 @@
-# Exercise 1 - Hello Message
+# Exercise 1 - Message Event
 TODO

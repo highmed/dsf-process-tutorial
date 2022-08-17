@@ -1,2 +1,2 @@
-# Exercise 1 - Hello Response
+# Exercise 1 - Event Gateway
 TODO
