@@ -66,7 +66,7 @@ public class ActivityDefinitionProfileTest
 	}
 
 	@Test
-	public void testRequesterValid() throws Exception
+	public void testHelloDicRequester() throws Exception
 	{
 		ActivityDefinition ad = validationRule
 				.readActivityDefinition(Paths.get("src/main/resources/fhir/ActivityDefinition/hello-dic.xml"));
