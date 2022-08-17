@@ -29,7 +29,7 @@ public interface ConstantsTutorial
 	String PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI_AND_LATEST_VERSION = PROFILE_TUTORIAL_TASK_HELLO_COS_PROCESS_URI
 			+ VERSION;
 	String PROFILE_TUTORIAL_TASK_HELLO_COS_MESSAGE_NAME = "helloCos";
-	
+
 	// The HELLO_HRP constants are only needed for exercise 5 and above
 	String PROCESS_NAME_HELLO_HRP = "helloHrp";
 	String PROCESS_NAME_FULL_HELLO_HRP = "highmedorg_" + PROCESS_NAME_HELLO_HRP;
