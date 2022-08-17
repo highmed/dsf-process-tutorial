@@ -57,19 +57,18 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 	public ResourceProvider getResourceProvider(FhirContext fhirContext, ClassLoader classLoader,
 			PropertyResolver resolver)
 	{
-		var aHelloProcess = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-dic.xml");
+		var aHelloDic = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-dic.xml");
 		var cTutorial = CodeSystemResource.file("fhir/CodeSystem/tutorial.xml");
-		var tHelloProcess = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-dic.xml");
+		var sTaskHelloDic = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-dic.xml");
 		var vTutorial = ValueSetResource.file("fhir/ValueSet/tutorial.xml");
 
-		var aHelloCosProcess = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-cos.xml");
-		var tHelloCosProcess = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-cos.xml");
+		var aHelloCos = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-cos.xml");
+		var sTaskHelloCos = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-cos.xml");
 
 		Map<String, List<AbstractResource>> resourcesByProcessKeyAndVersion = Map.of(
 				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + VERSION,
-				Arrays.asList(aHelloProcess, cTutorial, tHelloProcess, vTutorial),
-				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_COS + "/" + VERSION,
-				Arrays.asList(aHelloCosProcess, tHelloCosProcess));
+				Arrays.asList(aHelloDic, cTutorial, sTaskHelloDic, vTutorial),
+				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_COS + "/" + VERSION, Arrays.asList(aHelloCos, sTaskHelloCos));
 
 		return ResourceProvider.read(VERSION, RELEASE_DATE,
 				() -> fhirContext.newXmlParser().setStripVersionsFromReferences(false), classLoader, resolver,
