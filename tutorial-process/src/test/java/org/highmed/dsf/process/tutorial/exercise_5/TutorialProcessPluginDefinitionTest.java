@@ -362,7 +362,7 @@ public class TutorialProcessPluginDefinitionTest
 		List<Process> processes = model.getModelElementsByType(Process.class).stream()
 				.filter(p -> processId.equals(p.getId())).collect(Collectors.toList());
 
-		String errorProcessDefinitionKey = "Process in file '" + filename + "' is missing process definition ky '"
+		String errorProcessDefinitionKey = "Process in file '" + filename + "' is missing process definition key '"
 				+ processId + "'";
 		assertEquals(errorProcessDefinitionKey, 1, processes.size());
 

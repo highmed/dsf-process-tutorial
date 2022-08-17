@@ -55,12 +55,11 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 	public ResourceProvider getResourceProvider(FhirContext fhirContext, ClassLoader classLoader,
 			PropertyResolver resolver)
 	{
-		var aHelloProcess = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-dic.xml");
-		var tHelloProcess = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-dic.xml");
+		var aHelloDic = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-dic.xml");
+		var sTaskHelloDic = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-dic.xml");
 
 		Map<String, List<AbstractResource>> resourcesByProcessKeyAndVersion = Map.of(
-				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + VERSION,
-				Arrays.asList(aHelloProcess, tHelloProcess));
+				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + VERSION, Arrays.asList(aHelloDic, sTaskHelloDic));
 
 		return ResourceProvider.read(VERSION, RELEASE_DATE,
 				() -> fhirContext.newXmlParser().setStripVersionsFromReferences(false), classLoader, resolver,
