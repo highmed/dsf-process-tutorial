@@ -12,23 +12,12 @@
       <bpmn:outgoing>SequenceFlow_0bbhq2r</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_1nn2wdw" />
     </bpmn:startEvent>
-    <bpmn:endEvent id="endHelloDic">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="instantiatesUri">http://highmed.org/bpe/Process/helloCos/#{version}</camunda:inputParameter>
-          <camunda:inputParameter name="profile">http://highmed.org/fhir/StructureDefinition/task-hello-cos|#{version}</camunda:inputParameter>
-          <camunda:inputParameter name="messageName">helloCos</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0qxnh3f</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1u9uh7y" messageRef="Message_33na25b" camunda:class="org.highmed.dsf.process.tutorial.message.HelloCosMessage" />
-    </bpmn:endEvent>
     <bpmn:exclusiveGateway id="Gateway_0fqzdnc">
       <bpmn:incoming>SequenceFlow_0oyvmcd</bpmn:incoming>
       <bpmn:outgoing>Flow_0qxnh3f</bpmn:outgoing>
       <bpmn:outgoing>Flow_0ro2szy</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0qxnh3f" sourceRef="Gateway_0fqzdnc" targetRef="endHelloDic">
+    <bpmn:sequenceFlow id="Flow_0qxnh3f" sourceRef="Gateway_0fqzdnc" targetRef="sendHelloDic">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!stop}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="Event_1d1zk1w">
@@ -37,11 +26,82 @@
     <bpmn:sequenceFlow id="Flow_0ro2szy" sourceRef="Gateway_0fqzdnc" targetRef="Event_1d1zk1w">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${stop}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:intermediateThrowEvent id="sendHelloDic">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="instantiatesUri">http://highmed.org/bpe/Process/helloCos/#{version}</camunda:inputParameter>
+          <camunda:inputParameter name="profile">http://highmed.org/fhir/StructureDefinition/task-hello-cos|#{version}</camunda:inputParameter>
+          <camunda:inputParameter name="messageName">helloCos</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0qxnh3f</bpmn:incoming>
+      <bpmn:outgoing>Flow_1d9u9y6</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1eoqp5i" messageRef="Message_33na25b" camunda:class="org.highmed.dsf.process.tutorial.message.HelloCosMessage" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_1d9u9y6" sourceRef="sendHelloDic" targetRef="Gateway_1k2kngd" />
+    <bpmn:intermediateCatchEvent id="receiveGoodbyeDic">
+      <bpmn:incoming>Flow_02q9y10</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pj7vic</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0squqmc" messageRef="Message_0c1yhe7" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_0gdiqe5">
+      <bpmn:incoming>Flow_1pj7vic</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1pj7vic" sourceRef="receiveGoodbyeDic" targetRef="Event_0gdiqe5" />
+    <bpmn:sequenceFlow id="Flow_02q9y10" sourceRef="Gateway_1k2kngd" targetRef="receiveGoodbyeDic" />
+    <bpmn:eventBasedGateway id="Gateway_1k2kngd">
+      <bpmn:incoming>Flow_1d9u9y6</bpmn:incoming>
+      <bpmn:outgoing>Flow_02q9y10</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1k8wey0</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateCatchEvent id="timer">
+      <bpmn:incoming>Flow_1k8wey0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1aam86r</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_116y49m">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT2M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1k8wey0" sourceRef="Gateway_1k2kngd" targetRef="timer" />
+    <bpmn:endEvent id="Event_1vdvtc6">
+      <bpmn:incoming>Flow_1aam86r</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1aam86r" sourceRef="timer" targetRef="Event_1vdvtc6" />
   </bpmn:process>
   <bpmn:message id="Message_1nn2wdw" name="helloDic" />
   <bpmn:message id="Message_33na25b" name="helloCos" />
+  <bpmn:message id="Message_0c1yhe7" name="goodbyeDic" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="highmedorg_helloDic">
+      <bpmndi:BPMNEdge id="Flow_1aam86r_di" bpmnElement="Flow_1aam86r">
+        <di:waypoint x="798" y="200" />
+        <di:waypoint x="872" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k8wey0_di" bpmnElement="Flow_1k8wey0">
+        <di:waypoint x="660" y="146" />
+        <di:waypoint x="660" y="200" />
+        <di:waypoint x="762" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02q9y10_di" bpmnElement="Flow_02q9y10">
+        <di:waypoint x="685" y="121" />
+        <di:waypoint x="762" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pj7vic_di" bpmnElement="Flow_1pj7vic">
+        <di:waypoint x="798" y="121" />
+        <di:waypoint x="872" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d9u9y6_di" bpmnElement="Flow_1d9u9y6">
+        <di:waypoint x="578" y="121" />
+        <di:waypoint x="635" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ro2szy_di" bpmnElement="Flow_0ro2szy">
+        <di:waypoint x="450" y="146" />
+        <di:waypoint x="450" y="200" />
+        <di:waypoint x="542" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qxnh3f_di" bpmnElement="Flow_0qxnh3f">
+        <di:waypoint x="475" y="121" />
+        <di:waypoint x="542" y="121" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0oyvmcd_di" bpmnElement="SequenceFlow_0oyvmcd">
         <di:waypoint x="380" y="121" />
         <di:waypoint x="425" y="121" />
@@ -50,29 +110,35 @@
         <di:waypoint x="215" y="121" />
         <di:waypoint x="280" y="121" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0qxnh3f_di" bpmnElement="Flow_0qxnh3f">
-        <di:waypoint x="475" y="121" />
-        <di:waypoint x="542" y="121" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ro2szy_di" bpmnElement="Flow_0ro2szy">
-        <di:waypoint x="450" y="146" />
-        <di:waypoint x="450" y="200" />
-        <di:waypoint x="542" y="200" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0um3ad2_di" bpmnElement="helloDic">
         <dc:Bounds x="280" y="81" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_0x5gijn_di" bpmnElement="startHelloDic">
         <dc:Bounds x="179" y="103" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0xvd8i6_di" bpmnElement="endHelloDic">
-        <dc:Bounds x="542" y="103" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0fqzdnc_di" bpmnElement="Gateway_0fqzdnc" isMarkerVisible="true">
         <dc:Bounds x="425" y="96" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1d1zk1w_di" bpmnElement="Event_1d1zk1w">
         <dc:Bounds x="542" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_02a49ob_di" bpmnElement="sendHelloDic">
+        <dc:Bounds x="542" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0z3gy13_di" bpmnElement="receiveGoodbyeDic">
+        <dc:Bounds x="762" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0gdiqe5_di" bpmnElement="Event_0gdiqe5">
+        <dc:Bounds x="872" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1cxan2z_di" bpmnElement="Gateway_1k2kngd">
+        <dc:Bounds x="635" y="96" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12571x5_di" bpmnElement="timer">
+        <dc:Bounds x="762" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1vdvtc6_di" bpmnElement="Event_1vdvtc6">
+        <dc:Bounds x="872" y="182" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

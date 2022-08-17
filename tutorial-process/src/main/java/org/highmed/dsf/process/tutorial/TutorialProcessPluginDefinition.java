@@ -44,7 +44,7 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 	@Override
 	public Stream<String> getBpmnFiles()
 	{
-		return Stream.of("bpe/hello-dic.bpmn", "bpe/hello-cos.bpmn");
+		return Stream.of("bpe/hello-dic.bpmn", "bpe/hello-cos.bpmn", "bpe/hello-hrp.bpmn");
 	}
 
 	@Override
@@ -59,16 +59,23 @@ public class TutorialProcessPluginDefinition implements ProcessPluginDefinition
 	{
 		var aHelloDic = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-dic.xml");
 		var cTutorial = CodeSystemResource.file("fhir/CodeSystem/tutorial.xml");
+		var sTaskGoodbyeDic = StructureDefinitionResource.file("fhir/StructureDefinition/task-goodbye-dic.xml");
 		var sTaskHelloDic = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-dic.xml");
 		var vTutorial = ValueSetResource.file("fhir/ValueSet/tutorial.xml");
 
 		var aHelloCos = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-cos.xml");
 		var sTaskHelloCos = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-cos.xml");
 
+		var aHelloHrp = ActivityDefinitionResource.file("fhir/ActivityDefinition/hello-hrp.xml");
+		var sTaskHelloHrp = StructureDefinitionResource.file("fhir/StructureDefinition/task-hello-hrp.xml");
+
 		Map<String, List<AbstractResource>> resourcesByProcessKeyAndVersion = Map.of(
 				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_DIC + "/" + VERSION,
-				Arrays.asList(aHelloDic, cTutorial, sTaskHelloDic, vTutorial),
-				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_COS + "/" + VERSION, Arrays.asList(aHelloCos, sTaskHelloCos));
+				Arrays.asList(aHelloDic, cTutorial, sTaskGoodbyeDic, sTaskHelloDic, vTutorial),
+				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_COS + "/" + VERSION,
+				Arrays.asList(aHelloCos, cTutorial, sTaskHelloCos, vTutorial),
+				ConstantsTutorial.PROCESS_NAME_FULL_HELLO_HRP + "/" + VERSION,
+				Arrays.asList(aHelloHrp, cTutorial, sTaskHelloHrp, vTutorial));
 
 		return ResourceProvider.read(VERSION, RELEASE_DATE,
 				() -> fhirContext.newXmlParser().setStripVersionsFromReferences(false), classLoader, resolver,
