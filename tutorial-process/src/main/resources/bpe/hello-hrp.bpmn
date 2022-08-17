@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0soqulx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="change_me" isExecutable="true">
+    <bpmn:startEvent id="startHelloHrp">
+      <bpmn:outgoing>Flow_11zt459</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1wapcah" messageRef="Message_094gydj" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="endGoodbyeDic">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="instantiatesUri">http://highmed.org/bpe/Process/helloDic/#{version}</camunda:inputParameter>
+          <camunda:inputParameter name="profile">http://highmed.org/fhir/StructureDefinition/task-goodbye-dic|#{version}</camunda:inputParameter>
+          <camunda:inputParameter name="messageName">goodbyeDic</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1nlpchb</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0raq415" messageRef="Message_000lvyx" camunda:class="org.highmed.dsf.process.tutorial.message.GoodbyeDicMessage" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_11zt459" sourceRef="startHelloHrp" targetRef="HelloHrp" />
+    <bpmn:sequenceFlow id="Flow_1end5mr" sourceRef="HelloHrp" targetRef="Gateway_0qeqwwo" />
+    <bpmn:exclusiveGateway id="Gateway_0qeqwwo">
+      <bpmn:incoming>Flow_1end5mr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nlpchb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0uum1dq</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1nlpchb" sourceRef="Gateway_0qeqwwo" targetRef="endGoodbyeDic">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sendResponse}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_1wvmkv4">
+      <bpmn:incoming>Flow_0uum1dq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0uum1dq" sourceRef="Gateway_0qeqwwo" targetRef="Event_1wvmkv4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!sendResponse}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="HelloHrp" name="Hello Hrp" camunda:class="org.highmed.dsf.process.tutorial.service.HelloHrp">
+      <bpmn:incoming>Flow_11zt459</bpmn:incoming>
+      <bpmn:outgoing>Flow_1end5mr</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:message id="Message_094gydj" name="helloHrp" />
+  <bpmn:message id="Message_000lvyx" name="goodbyeDic" />
+  <bpmn:message id="Message_33na25b" name="helloCos" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="change_me">
+      <bpmndi:BPMNEdge id="Flow_0uum1dq_di" bpmnElement="Flow_0uum1dq">
+        <di:waypoint x="450" y="122" />
+        <di:waypoint x="450" y="170" />
+        <di:waypoint x="562" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nlpchb_di" bpmnElement="Flow_1nlpchb">
+        <di:waypoint x="475" y="97" />
+        <di:waypoint x="562" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1end5mr_di" bpmnElement="Flow_1end5mr">
+        <di:waypoint x="380" y="97" />
+        <di:waypoint x="425" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11zt459_di" bpmnElement="Flow_11zt459">
+        <di:waypoint x="215" y="97" />
+        <di:waypoint x="280" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1azgt5l_di" bpmnElement="startHelloHrp">
+        <dc:Bounds x="179" y="79" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jti4iu_di" bpmnElement="endGoodbyeDic">
+        <dc:Bounds x="562" y="79" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0qeqwwo_di" bpmnElement="Gateway_0qeqwwo" isMarkerVisible="true">
+        <dc:Bounds x="425" y="72" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wvmkv4_di" bpmnElement="Event_1wvmkv4">
+        <dc:Bounds x="562" y="152" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jlqyg8_di" bpmnElement="HelloHrp">
+        <dc:Bounds x="280" y="57" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
