@@ -2,7 +2,13 @@
 The first exercise focuses on setting up the testing environment used in this tutorial and shows how to implement and execute a simple BPMN process.
 
 ## Introduction
-TODO introduction to the tutorial environment. Link to prerequisites document, how to checkout, what is provided, how to start the DSF instances, how to access the DSF FHIR servers.
+The tutorial project consists of three parts: A `test-data-generator` project used to generate X.509 certificates and FHIR resources during the build of the project. The certificates and FHIR resources are needed to start DSF instances simulating installations at three different organizations used for this tutorial. The DSF instances are configured using a `docker-compose.yml` file in the `test-setup` folder. The docker-compose test setup uses a single PostgreSQL database server and a single nginx reverse proxy as well as three separate DSF FHIR server- and 3 separate DSF BPE server instances. The `tutorial-process` project contains all resource (FHIR resources, BPMN process models and Java code for the actual DSF process plugin.
+
+The `tutorial-process` project contains Java code at `src/main/java`, FHIR resources and BPMN process models at `src/main/resources` as well as prepared JUnit tests to verify your solution at `src/test/java`.
+
+The most imported Java class used to specify the process plugin for the DSF BPE server is a class that implements the `org.highmed.dsf.bpe.ProcessPluginDefinition` interface from the `dsf-bpe-process-base` module. The DSF BPE server searches for classes implementing this interface using the [ServiceLoader](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html) mechanism. For this tutorial the `TutorialProcessPluginDefinition` class implements this interface and appropriately the `TutorialProcessPluginDefinition` class is specified in the `src/main/resources/META-INF/services/org.highmed.dsf.bpe.ProcessPluginDefinition` file.
+
+The `TutorialProcessPluginDefinition` class is used to specify name and version of the process plugin, what BPMN process are to be deployed and what FHIR resources and required by the BPMN process as well as specifying Java service classes implementing process tasks and message events via [Spring-Framework beans defined in a configuration class](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java-basic-concepts): `TutorialConfig`.
 
 ## Exercise Tasks
 1. Add a log message to the `HelloDic#doExecute` method that contains the recipient organization identifier from the "leading" Task.
@@ -37,7 +43,7 @@ To verify the `highmedorg_helloDic` process can be execute successfully, we need
 3. Start the `highmed_helloDic` process by posting a specific FHIR Task resource to the DSF FHIR server:
 
     The Task resource is used to tell the DSF BPE server via the DSF FHIR server that a specific organization wants to start (or continue) one process instance at a specified organization. The needed Task resource can be generated and posted to the DSF FHIR server by executing the `main` method of the `org.highmed.dsf.process.tutorial.TutorialExampleStarter` class. For TutorialExampleStarter to work the location of the client certificate and its password need to be specified:
-	* Either specifiy the location and password via program arguments: 1. location of the client certificate (`.../test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12`), 2. password for the client certificate (`password`)
+	* Either specify the location and password via program arguments: 1. location of the client certificate (`.../test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12`), 2. password for the client certificate (`password`)
 	* Or set the environment variables `DSF_CLIENT_CERTIFICATE_PATH` and `DSF_CLIENT_CERTIFICATE_PASSWORD` with the appropriate values.
 	
 	Verify that the FHIR Task resource could be created at the DSF FHIR server. The TutorialExampleStarter class should print a message `HTTP 201: Created` showing that the Task resource was created.
