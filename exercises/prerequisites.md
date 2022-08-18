@@ -11,12 +11,7 @@ In order to be able to solve the exercises described in this tutorial a software
 
 
 ## Java 11
-Processes for the DSF are written using the [Java](https://www.java.com) programming language in version 11. 
-
-- An installation guide for Java 11 can be found here: 
-	- [Linux installation guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-linux-platforms.html#GUID-737A84E4-2EFF-4D38-8E60-3E29D1B884B8)
-	- [Mac installation guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-macos.html#GUID-E8A251B6-D9A9-4276-ABC8-CC0DAD62EA33)
-	- [Windows installation guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-microsoft-windows-platforms.html)
+Processes for the DSF are written using the [Java](https://www.java.com) programming language in version 11. Various open source releases of the Java Developer Kit (JDK) 11 exist, you are free in your choice.
 
 
 ## Maven 3.8
