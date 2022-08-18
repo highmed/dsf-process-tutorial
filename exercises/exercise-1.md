@@ -34,7 +34,7 @@ To verify the `highmedorg_helloDic` process can be execute successfully, we need
 	docker-compose up dic-fhir
 	```
 	Verify the DSF FHIR server started successfully. You can access the webservice of the DSF FHIR server at https://dic/fhir  
-	The DSF FHIR server uses a server certificate that was generated during the first maven build. To authenticate yourself to the server you can use the client certificate located at `.../test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12` (Password: password)
+	The DSF FHIR server uses a server certificate that was generated during the first maven build. To authenticate yourself to the server you can use the client certificate located at `.../dsf-process-tutorial/test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12` (Password: password)
 
 2. Start the DSF BPE server for the `Test_DIC` organization in another console at location `.../dsf-process-tutorial/test-setup`:
 	```
@@ -45,7 +45,7 @@ To verify the `highmedorg_helloDic` process can be execute successfully, we need
 3. Start the `highmed_helloDic` process by posting a specific FHIR [Task](http://hl7.org/fhir/R4/task.html) resource to the DSF FHIR server:
 
     The [Task](http://hl7.org/fhir/R4/task.html) resource is used to tell the DSF BPE server via the DSF FHIR server that a specific organization wants to start (or continue) one process instance at a specified organization. The needed [Task](http://hl7.org/fhir/R4/task.html) resource can be generated and posted to the DSF FHIR server by executing the `main` method of the `org.highmed.dsf.process.tutorial.TutorialExampleStarter` class. For TutorialExampleStarter to work the location of the client certificate and its password need to be specified:
-	* Either specify the location and password via program arguments: 1. location of the client certificate (`.../test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12`), 2. password for the client certificate (`password`)
+	* Either specify the location and password via program arguments: 1. location of the client certificate (`.../dsf-process-tutorial/test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12`), 2. password for the client certificate (`password`)
 	* Or set the environment variables `DSF_CLIENT_CERTIFICATE_PATH` and `DSF_CLIENT_CERTIFICATE_PASSWORD` with the appropriate values.
 	
 	Verify that the FHIR [Task](http://hl7.org/fhir/R4/task.html) resource could be created at the DSF FHIR server. The TutorialExampleStarter class should print a message `HTTP 201: Created` showing that the [Task](http://hl7.org/fhir/R4/task.html) resource was created.
