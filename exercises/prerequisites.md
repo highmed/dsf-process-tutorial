@@ -20,7 +20,7 @@ When implementing DSF processes, we use Maven 3.8 to manage the software project
 - An installation guide for Maven 3.8 can be found here: [installation guide](https://maven.apache.org/install.html)
 - The most important maven commands are described here: [commands](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 
-**GitHub Packages:**
+### GitHub Packages
 
 In order to install DSF packages from the GitHub Package Registry using Maven you need a personal GitHub access token. This [GitHub documentation](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) shows you how to generate one.
 
@@ -52,7 +52,7 @@ To be able to test the implemented processes, we use a test-setup based on Docke
 - The most important Docker commands are described here: [Docker commands](https://docs.docker.com/engine/reference/run/)
 - An overview of docker-compose commands are described here: [docker-compose commands](https://docs.docker.com/compose/reference/)
 
-**Host entries for test-setup:**
+### Host entries for test-setup
 
 The following entry is required in the `hosts` file of your computer so that the FHIR servers of the simulated organizations can be accessed in your web browser. On Linux and Mac this file is located under the path `/etc/hosts`. On Windows you can access it under `C:\Windows\System32\drivers\etc\hosts`.
 
