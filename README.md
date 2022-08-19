@@ -11,7 +11,7 @@ The first exercise focuses on setting up the testing environment used in this tu
 In order to dynamically control processes that are packaged as a process plugins, we will take a look in this exercise at two possibilities on how to pass input parameters to a process. For more details see the [exercise 2 description](exercises/exercise-2.md).
 
 ## Exercise 3 - Message Event
-TODO short description, for more details see the [exercise 3 description](exercises/exercise-3.md).
+Communication between organizations is modeled using message flow in BPMN processes. The third exercise shows how a process at one organization can trigger a process at another organization. For more details see the [exercise 3 description](exercises/exercise-3.md).
 
 ## Exercise 4 - Exclusive Gateway
 TODO short description, for more details see the [exercise 4 description](exercises/exercise-4.md).
