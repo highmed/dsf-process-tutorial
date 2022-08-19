@@ -39,7 +39,7 @@ a process jar file with all necessary resources and copy the jar to the appropri
    ```
    docker-compose up dic-bpe
    ```
-   Verify the DSF BPE server started successfully and deployed the `highmed_helloDic` process.
+   Verify the DSF BPE server started successfully and deployed the `highmedorg_helloDic` process.
 
 3. Start the DSF FHIR server for the `Test_COS` organization in a console at
    location `.../dsf-process-tutorial/test-setup`:
@@ -58,17 +58,17 @@ a process jar file with all necessary resources and copy the jar to the appropri
    ```
    docker-compose up cos-bpe
    ```
-   Verify the DSF BPE server started successfully and deployed the `highmed_helloCos` process. The DSF BPE server should
+   Verify the DSF BPE server started successfully and deployed the `highmedorg_helloCos` process. The DSF BPE server should
    print a message that the process was deployed. The DSF FHIR server should now have a new ActivityDefinition resource.
    Go to https://cos/fhir/ActivityDefinition to check if the expected resource was created by the BPE while deploying
    the process. The returned FHIR Bundle should contain a two ActivityDefinition resources. Also, go
    to https://cos/fhir/StructureDefinition?url=http://highmed.org/fhir/StructureDefinition/task-hello-cos to check if
    the expected [Task](http://hl7.org/fhir/R4/task.html) profile was created.
 
-5. Start the `highmed_helloDic` process by posting a specific FHIR [Task](http://hl7.org/fhir/R4/task.html) resource to
+5. Start the `highmedorg_helloDic` process by posting a specific FHIR [Task](http://hl7.org/fhir/R4/task.html) resource to
    the DSF FHIR server of the `Test_DIC` organization:
    Executing the `main` method of the `org.highmed.dsf.process.tutorial.TutorialExampleStarter` class to create
-   the [Task](http://hl7.org/fhir/R4/task.html) resource needed to start the `highmed_helloDic` process.
+   the [Task](http://hl7.org/fhir/R4/task.html) resource needed to start the `highmedorg_helloDic` process.
 
    Verify that the `highmedorg_helloDic` process was executed successfully by the `Test_DIC` DSF BPE server and possibly
    the `highmedorg_helloCos` process by the `Test_COS` DSF BPE server, depending on whether the correct code word was

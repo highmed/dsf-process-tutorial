@@ -16,7 +16,7 @@ To create an automated documentation of environment variables during the Maven b
 Providing input parameters to a specific process instance can be done by sendig additional values as part of the [Task](http://hl7.org/fhir/R4/task.html) resource that starts or continues a process instance. It should be noted that a FHIR profile must be created for each [Task](http://hl7.org/fhir/R4/task.html) resource, i.e. for each message event in a process model, which inherits from the [DSF Task Base Profile](https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml). This base profile defines three default input parameters:
 
 * [`message-name`](https://github.com/highmed/highmed-dsf/blob/f372b757b22d59b3594a220f7f380c60aa6f00b8/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml#L106-L145) (**mandatory 1..1**): the name of the BPMN message event, same as in the BPMN model
-* [`business-key`](https://github.com/highmed/highmed-dsf/blob/f372b757b22d59b3594a220f7f380c60aa6f00b8/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml#L146-L184) (optional 0..1): business key used to identify process instances
+* [`business-key`](https://github.com/highmed/highmed-dsf/blob/f372b757b22d59b3594a220f7f380c60aa6f00b8/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml#L146-L184) (optional 0..1): used to identify process instances
 * [`correlation-key`](https://github.com/highmed/highmed-dsf/blob/f372b757b22d59b3594a220f7f380c60aa6f00b8/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml#L185-L223) (optional 0..1): used to identify multi-instance process instances used for messaging multiple targets
 
 Since input parameters  of [Task](http://hl7.org/fhir/R4/task.html) resources are identified by predefined codes, they are defined via FHIR [CodeSystem](http://hl7.org/fhir/R4/codesystem.html) and [ValueSet](http://hl7.org/fhir/R4/valueset.html) resources. The [BPMN-Message CodeSystem](https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/CodeSystem/highmed-bpmn-message-0.5.0.xml) and the [BPMN-Message ValueSet](
@@ -92,15 +92,15 @@ and copy the jar to the appropriate locations of the docker test setup.
    ```
    docker-compose up dic-bpe
    ```
-   Verify the DSF BPE server started successfully and deployed the `highmed_helloDic` process. The DSF BPE server should
+   Verify the DSF BPE server started successfully and deployed the `highmedorg_helloDic` process. The DSF BPE server should
    print a message that the process was deployed. The DSF FHIR server should now have a new ActivityDefinition resource.
    Go to https://dic/fhir/ActivityDefinition to check if the expected resource was created by the BPE while deploying
    the process. The returned FHIR Bundle should contain a single ActivityDefinition. Also, go
    to https://dic/fhir/StructureDefinition?url=http://highmed.org/fhir/StructureDefinition/task-hello-dic to check if
    the expected [Task](http://hl7.org/fhir/R4/task.html) profile was created.
 
-3. Start the `highmed_helloDic` process by posting a specific FHIR [Task](http://hl7.org/fhir/R4/task.html) resource to the DSF FHIR server of the `Test_DIC` organization:
-   Executing the `main` method of the `org.highmed.dsf.process.tutorial.TutorialExampleStarter` class to create the [Task](http://hl7.org/fhir/R4/task.html) resource needed to start the `highmed_helloDic` process.
+3. Start the `highmedorg_helloDic` process by posting a specific FHIR [Task](http://hl7.org/fhir/R4/task.html) resource to the DSF FHIR server of the `Test_DIC` organization:
+   Executing the `main` method of the `org.highmed.dsf.process.tutorial.TutorialExampleStarter` class to create the [Task](http://hl7.org/fhir/R4/task.html) resource needed to start the `highmedorg_helloDic` process.
 
    Verify that the `highmedorg_helloDic` process was executed by the DSF BPE server. The BPE server should:
     * Print a message showing that the process was started.
