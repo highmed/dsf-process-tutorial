@@ -1,7 +1,7 @@
 # Exercise 4 - Exclusive Gateway
 
-Different paths of a process instance execution based on execution variables can be facilitated using exclusive
-gateways. We will examine in exercise four how this can be implemented. 
+Different sequence flows of a process instance execution based on execution variables can be facilitated using exclusive
+gateways. We will examine in exercise four how this can be implemented.
 
 ## Introduction
 
@@ -9,7 +9,10 @@ TODO
 
 ## Exercise Tasks
 
-1. TODO
+1. In the `HelloDic` class, write an algorithm deciding based on the "leading" Task's input parameter `tutorial-input`, whether the `highmedorg_helloCos` process should be started.
+2. Add a boolean variable to the process instance execution variables storing the decision.
+3. Add an exclusive gateway to the `highmedorg_helloDic` process model and two outgoing sequence flows - the first starting process `highmedorg_helloDic`, the second stopping process `highmedorg_helloDic` without starting process `highmedorg_helloCos`.
+4. Add a condition expressions to each outgoing sequence flows based on the previously stored execution variable.
 
 ## Solution Verification
 
