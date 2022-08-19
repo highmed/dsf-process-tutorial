@@ -1,5 +1,4 @@
 # Exercise 4 - Exclusive Gateway
-
 Different sequence flows of a process instance execution based on execution variables can be facilitated using exclusive
 gateways. We will examine in exercise four how this can be implemented.
 
@@ -8,16 +7,13 @@ gateways. We will examine in exercise four how this can be implemented.
 TODO
 
 ## Exercise Tasks
-
 1. In the `HelloDic` class, write an algorithm deciding based on the "leading" Task's input parameter `tutorial-input`, whether the `highmedorg_helloCos` process should be started.
 2. Add a boolean variable to the process instance execution variables storing the decision.
 3. Add an exclusive gateway to the `highmedorg_helloDic` process model and two outgoing sequence flows - the first starting process `highmedorg_helloDic`, the second stopping process `highmedorg_helloDic` without starting process `highmedorg_helloCos`.
 4. Add a condition expressions to each outgoing sequence flows based on the previously stored execution variable.
 
 ## Solution Verification
-
 ### Maven Build and Automated Tests
-
 Execute a maven build of the `dsf-process-tutorial` parent module via:
 
 ```
@@ -27,7 +23,6 @@ mvn clean install -Pexercise-4
 Verify that the build was successful and no test failures occurred.
 
 ### Process Execution and Manual Tests
-
 To verify the `highmedorg_helloDic` and `highmedorg_helloCos` processes can be executed successfully, we need to deploy
 them into DSF instances and execute the `highmedorg_helloDic` process. The maven `install` build is configured to create
 a process jar file with all necessary resources and copy the jar to the appropriate locations of the docker test setup.

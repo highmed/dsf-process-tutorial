@@ -16,7 +16,6 @@ TODO Message End Event - message name, task profile, process key/version vs. ins
 1. Modify `HelloDic` service class to set the `target` process variable for the `Test_COS` organization.
 1. Configure the `HelloCosMessage` class as a spring in the `TutorialConfig` class.
 
-
 ## Solution Verification
 ### Maven Build and Automated Tests
 Execute a maven build of the `dsf-process-tutorial` parent module via:

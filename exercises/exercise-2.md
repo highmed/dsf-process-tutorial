@@ -1,22 +1,18 @@
 # Exercise 2 - Input Parameter
-
 In order to dynamically control processes that are packaged as a process plugins, we will take a look at two possibilities on how to pass input parameters to a process.
 
 ## Introduction
-
 DSF process plugins can be configured with input parameters using two different approaches: 
 
 * Environment variables that allow configuration during the deployment of the process plugin 
 * Values that are sent as part of the [Task](http://hl7.org/fhir/R4/task.html) resource to start or continue a process instance
 
 ### Environment Variables
-
 Environment variables are the same for all running process instances. They can be defined by adding a member variable having the [Spring-Framework @Value](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-value-annotations) annotation to the configuration class `TutorialConfig`. The value of the annotation uses the `${..}` notation and follows the form `${some.property:defaultValue}`, where each dot in the property name corresponds to an underscore in the environment variable and environment variables are always written uppercase. The property `some.property` therefore corresponds to the environment variable `SOME_PROPERTY`.
 
 To create an automated documentation of environment variables during the Maven build process, the [@ProcessDocumentation](https://github.com/highmed/highmed-dsf/blob/main/dsf-tools/dsf-tools-documentation-generator/src/main/java/org/highmed/dsf/tools/generator/ProcessDocumentation.java) annotation can be used. The `pom.xml` of the `tutorial-process` submodule calls the [DocumentGenerator](https://github.com/highmed/highmed-dsf/blob/main/dsf-tools/dsf-tools-documentation-generator/src/main/java/org/highmed/dsf/tools/generator/DocumentationGenerator.java) class during the `prepare-package` phase of the build process, which searches for all [@ProcessDocumentation](https://github.com/highmed/highmed-dsf/blob/main/dsf-tools/dsf-tools-documentation-generator/src/main/java/org/highmed/dsf/tools/generator/ProcessDocumentation.java) annotations and generates a Mardown documentation based on the annotation's values.
 
 ### Task Input Parameters
-
 Providing input parameters to a specific process instance can be done by sendig additional values as part of the [Task](http://hl7.org/fhir/R4/task.html) resource that starts or continues a process instance. It should be noted that a FHIR profile must be created for each [Task](http://hl7.org/fhir/R4/task.html) resource, i.e. for each message event in a process model, which inherits from the [DSF Task Base Profile](https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml). This base profile defines three default input parameters:
 
 * [`message-name`](https://github.com/highmed/highmed-dsf/blob/f372b757b22d59b3594a220f7f380c60aa6f00b8/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml#L106-L145) (**mandatory 1..1**): the name of the BPMN message event, same as in the BPMN model
@@ -27,11 +23,9 @@ Since input parameters  of [Task](http://hl7.org/fhir/R4/task.html) resources ar
 https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/ValueSet/highmed-bpmn-message-0.5.0.xml) are used in the [DSF Task Base Profile](https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml) to define the three default input parameters of [Task](http://hl7.org/fhir/R4/task.html) resources.
 
 ### Version and Release-Date Placeholders
-
 To avoid the need to enter the version and release date for each [Task](http://hl7.org/fhir/R4/task.html) profile, [CodeSystem](http://hl7.org/fhir/R4/codesystem.html) and [ValueSet](http://hl7.org/fhir/R4/valueset.html) release, the placeholders `#{version}` and `#{date}` can be used. They are replaces with the values returned by the methods `ProcessPluginDefinition#getVersion()` and `ProcessPluginDefinition#getReleaseDate()` respectivally during deployment of a process plugin.
 
 ### Read Access Tag
-
 While writing FHIR resources is only allowed by the own organization, rules have to be defined for reading FHIR resources for external organizations (except [Task](http://hl7.org/fhir/R4/task.html). The `Resource.meta.tag` field is used for this purpose. To allow read access for all, the following value can be written into this field:
 
 ```xml
@@ -48,7 +42,6 @@ The read access rules for [Task](http://hl7.org/fhir/R4/task.html) resources are
 It is also possible to restrict the reading of FHIR resources to a role in a consortium or to a specific organization. We will discuss this in exercise 5.
 
 ## Exercise Tasks
-
 1. Add an environment variable to enable/disable logging to the `TutorialConfig` class using the above explained
    annotations and add a default value `false`.
 2. Use the new environment variable in the `HelloDic` class to decide whether the log message from exercise 1 should be
@@ -68,9 +61,7 @@ It is also possible to restrict the reading of FHIR resources to a role in a con
 9. Adapt the starter class `TutorialExampleStarter` by adding the new input parameter with an arbitrary string.
 
 ## Solution Verification
-
 ### Maven Build and Automated Tests
-
 Execute a maven build of the `dsf-process-tutorial` parent module via:
 
 ```
@@ -80,7 +71,6 @@ mvn clean install -Pexercise-2
 Verify that the build was successful and no test failures occurred.
 
 ### Process Execution and Manual Tests
-
 To verify the `highmedorg_helloDic` process can be executed successfully, we need to deploy it into a DSF instance and
 execute the process. The maven `install` build is configured to create a process jar file with all necessary resources
 and copy the jar to the appropriate locations of the docker test setup.

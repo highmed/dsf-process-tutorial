@@ -16,9 +16,9 @@ FHIR [ActivityDefinition](http://hl7.org/fhir/R4/activitydefinition.html) resour
 
 ## Exercise Tasks
 1. Add a log message to the `HelloDic#doExecute` method that contains the recipient organization identifier from the "leading" [Task](http://hl7.org/fhir/R4/task.html).
-1. Register the `HelloDic` class as a singleton bean in the `TutorialConfig` class.
-1. Set the `HelloDic` class as the service implementation of the appropriate service task within the `hello-dic.bpmn` process model.
-1. Modify the ActivityDefinition for the `highmedorg_helloDic` process to only allow local clients to instantiate the process via a `helloDic` message.
+2. Register the `HelloDic` class as a singleton bean in the `TutorialConfig` class.
+3. Set the `HelloDic` class as the service implementation of the appropriate service task within the `hello-dic.bpmn` process model.
+4. Modify the ActivityDefinition for the `highmedorg_helloDic` process to only allow local clients to instantiate the process via a `helloDic` message.
 
 ## Solution Verification
 ### Maven Build and Automated Tests
