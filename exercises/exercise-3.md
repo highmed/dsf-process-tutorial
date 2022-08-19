@@ -4,7 +4,33 @@ Communication between organizations is modeled using message flow in BPMN proces
 To demonstrate communication between two organizations we will configure message flow between the processes `highmedorg_helloDic` and `highmedorg_helloCos`. The processes are then to be executed at the organization `Test_DIC` and `Test_COS` respectively in the docker test setup, with the former triggering the latter.
 
 ## Introduction
-TODO Message End Event - message name, task profile, process key/version vs. instantiatesUri; Message Start Event - message name
+### Message Flow and FHIR Task resources
+BPMN processes are instantiated and started within DSF by creating a matching FHIR [Task](http://hl7.org/fhir/R4/task.html) resource in the DSF FHIR server. This is true for executing a process on the local DSF BPE server as well as creating and starting a process instance at a remote DSF BPE server.
+
+In order to exchange information between different processes, for example at two different organizations, BPMN message flow is used. Typically represented by a dashed line between elements with black (send) and white (receive) envelop icons. The following BPMN collaboration diagram shows two processes, with the process at "Organization 1" sending a message to "Organization 2" which results in the instantiation and execution of new process instance at the second organization.
+
+![BPMN collaboration diagram with two processes using message flow to exchange information between two organizations](figures/exercise3_message_flow.svg)
+
+Every time message flow is used in a BPMN process for the DSF, a corresponding FHIR [Task](http://hl7.org/fhir/R4/task.html) profile needs to be specified for every interaction. This profile specifies which process should be started or continued and what the message name is when correlating the appropriate [Message Start Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-start-event) or [Intermediate Message Catch Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-intermediate-catching-event). If necessary a _Business Key_ and a _Correlation Key_ are specified if different process instances need to be linked to a single execution. For example to be able to send a message back.
+
+### BPMN Process Definition Key vs. FHIR Task.instantiatesUri
+FHIR [ActivityDefinition](http://hl7.org/fhir/R4/activitydefinition.html) resources are used to announce what processes can be instantiated at a given DSF instance. They also control what kind of organization can request the instantiation or continuation of a process instance and what kind of organization is allowed to fulfill the request.
+
+In order to link the FHIR and BPMN worlds the BPMN process definition key needs to be specified following the pattern `^[-a-zA-Z0-9]+_[-a-zA-Z0-9]+$` for example:  
+```
+domainorg_processKey
+```
+In addition the BPM process needs to specify a process version with the pattern `^\d+.\d+.\d+$` for example:
+```
+1.0.0
+```
+
+This results in a canonical URL used to identify the process, for example:
+```
+http://domain.org/bpe/Process/processKey/1.0.0
+```
+
+The canonical URL is used for [Task.instantiatesUri](http://hl7.org/fhir/R4/task.html) and [ActivityDefinition.url / version](http://hl7.org/fhir/R4/activitydefinition.html).
 
 ## Exercise Tasks
 1. Modify the `highmedorg_helloDic` process in the `hello-dic.bpmn` file and replace the [End Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/none-events/#none-end-event) with a [Message End Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-end-event). Configure input parameters `instantiatesUri`, `profile` and `messageName` in the BPMN model for the [Message End Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-end-event). Set the message name of the [Message End Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-end-event) and configure it to be execute using the `HelloCosMessage` class.  
