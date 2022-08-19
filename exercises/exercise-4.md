@@ -3,8 +3,9 @@ Different sequence flows of a process instance execution based on execution vari
 gateways. We will examine in exercise four how this can be implemented.
 
 ## Introduction
+Different sequence flows during the execution of process instance can be modeled using BPMN [Exclusive Gateways](https://docs.camunda.org/manual/7.4/reference/bpmn20/gateways/exclusive-gateway/). For each outgoing sequence flow of the gateway, a BPMN [Condition Expression](https://docs.camunda.org/manual/7.17/user-guide/process-engine/expression-language/#conditions) can be added to the process model, deciding whether a sequence flow should be followed. Thereby, all condition decisions must be in an XOR relationship to each other. 
 
-TODO
+A BPMN [Condition Expression](https://docs.camunda.org/manual/7.17/user-guide/process-engine/expression-language/#conditions) uses the `${..}` notation. Within the curly braces all execution variables of a process instance can be accessed, e.g. the ones that were stored in a previous Java implementation of a BPMN [ServiceTask](https://docs.camunda.org/manual/7.17/reference/bpmn20/tasks/service-task/). For example, the BPMN [Condition Expression](https://docs.camunda.org/manual/7.17/user-guide/process-engine/expression-language/#conditions) `${cohortSize > 100}` checks whether the value in the execution variable *cohortSize* is greater than 100.
 
 ## Exercise Tasks
 1. In the `HelloDic` class, write an algorithm deciding based on the "leading" Task's input parameter `tutorial-input`, whether the `highmedorg_helloCos` process should be started.
