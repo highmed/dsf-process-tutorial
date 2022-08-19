@@ -30,10 +30,10 @@ While writing FHIR resources is only allowed by the own organization, rules have
 
 ```xml
 <meta>
-	<tag>
-		<system value="http://highmed.org/fhir/CodeSystem/read-access-tag" />
-		<code value="ALL" />
-	</tag>
+   <tag>
+      <system value="http://highmed.org/fhir/CodeSystem/read-access-tag" />
+      <code value="ALL" />
+   </tag>
 </meta>
 ```
 
