@@ -2,12 +2,25 @@
 This exercise looks at how to use the Java debugger of your IDE to remote debug the execution of a process plugin.
 
 ## Introduction
-TODO
+The DSF FHIR server and the DSF BPE server applications are written in Java and as such are execute on a headless JRE 11. Command line arguments can be passed to the JVM inside the [ghcr.io/highmed/fhir](https://github.com/highmed/highmed-dsf/pkgs/container/fhir) and [ghcr.io/highmed/bpe](https://github.com/highmed/highmed-dsf/pkgs/container/bpe) docker images by specifying the environment variable `EXTRA_JVM_ARGS`. This can be used for example to configure the minimum and maximum heap of the JVM; but the environment variable can also be used to specify a remote debugging port, which we will use in this exercise.
+
+A `EXTRA_JVM_ARGS` environment variable is configure for all DSF FHIR server and DSF BPE server docker containers in the tutorial docker test setup. Take a look at the [docker-compose.yml](https://github.com/highmed/dsf-process-tutorial/blob/main/test-setup/docker-compose.yml) file to lookup the port numbers specified for the different DSF FHIR and DSF BPE servers.
 
 ## Exercise Tasks
-1. TODO Start DSF FHIR server
-1. TODO Start DSF BPE server
-1. TODO Connect Java IDE debugger
-1. TODO Set breakpoint in `HelloDic` class `doExecute` method
-1. TODO Send specific Task resource to start `highmed_helloDic` process
-1. TODO Use Java IDE debugger
+1. Start the DSF FHIR server for the `Test_DIC` organization in a console at location `.../dsf-process-tutorial/test-setup`:
+	```
+	docker-compose up dic-fhir
+	```
+2. Start the DSF BPE server for the `Test_DIC` organization in another console at location `.../dsf-process-tutorial/test-setup`:
+	```
+	docker-compose up dic-bpe
+	```
+1. Configure your Java IDE for remote debugging
+	* Eclipse:  
+	    ![Eclipse remote debugging dialog](figures/remote_debugging_eclipse.png)
+	* IntelliJ:  
+	    ![IntelliJ  remote debugging dialog](figures/remote_debugging_intellij.png)
+
+1. Create a Debug breakpoint in first line of the `HelloDic` class `doExecute` method.
+1. Execute the `TutorialExampleStarter` class to start `highmed_helloDic` process.
+1. User your Java IDE debugger to step thru the code of the `HelloDic` class.
