@@ -274,9 +274,11 @@
 		</profile>
 		<profile>
 			<id>validate-and-check</id>
+			<!-- reactivate when modifiying exercises or adding new ones 
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			-->
 
 			<build>
 				<plugins>
