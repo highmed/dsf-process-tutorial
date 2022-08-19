@@ -2,10 +2,23 @@
 In order to dynamically control processes that are packaged as a process plugins, we will take a look in this exercise at two possibilities on how to pass input parameters to a process.
 
 ## Introduction
-TODO
+- Spring @Value
+- @ProcessDocumentation
+- CodeSystem and ValueSet 
+- Platzhalter #{version} #{date}
+- ReadAccess Tags
+- Task Profile input parameters (link auf base profil) Standartelemente eines base profils und welche mandatory sind (message muss, beide anderen nicht)
 
 ## Exercise Tasks
-1. TODO
+1. Add an environment variable to enable/disable logging to the `TutorialConfig` class using the above explained annotations and add a default value `false`.
+2. Use the new environment variable in the `HelloDic` class to decide whether the log message from exercise 1 should be printed.
+3. Adapt `test-setup/docker-compose.yml` by adding the new environment variable to the service `dic-bpe` and set the value to `true`.
+4. Create a new CodeSystem with url `http://highmed.org/fhir/CodeSystem/tutorial` having a concept with code `tutorial-input`.
+5. Create a new ValueSet with url `http://highmed.org/fhir/ValueSet/tutorial` including all concepts from the CodeSystem.
+6. Add the new CodeSystem and ValueSet resources to the `highmedorg_helloDic` process in the `TutorialProcessPluginDefinition` class.
+7. Add a new input parameter of type `string` to the `task-hello-dic.xml` [Task](http://hl7.org/fhir/R4/task.html) profile using the concept of the new CodeSystem as a fixed coding.  
+8. Read the new input parameter in the `HelloDic` class from the "leading" [Task](http://hl7.org/fhir/R4/task.html) and add the value to log message from exercise 1
+9. Adapt the starter class `TutorialExampleStarter` by adding the new input parameter with an arbitrary string.
 
 ## Solution Verification
 ### Maven Build and Automated Tests
@@ -41,5 +54,5 @@ To verify the `highmedorg_helloDic` process can be executed successfully, we nee
 
    Verify that the `highmedorg_helloDic` process was executed by the DSF BPE server. The BPE server should:
    * Print a message showing that the process was started.
-   * If logging is enabled: print the log message **and the value of the input parameter** you added to the `HelloDic` implementation.
+   * If logging is enabled - print the log message and the value of the input parameter you added to the `HelloDic` implementation.
    * Print a message showing that the process finished.
