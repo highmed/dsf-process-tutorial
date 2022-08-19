@@ -8,7 +8,7 @@ In order to be able to solve the exercises described in this tutorial a software
 The first exercise focuses on setting up the testing environment used in this tutorial and shows how to implement and execute a simple BPMN process. For more details see the [exercise 1 description](exercises/exercise-1.md).
 
 ## Exercise 2 - Input Parameter
-TODO short description, for more details see the [exercise 2 description](exercises/exercise-2.md).
+In order to dynamically control processes that are packaged as a process plugins, we will take a look in this exercise at two possibilities on how to pass input parameters to a process. For more details see the [exercise 2 description](exercises/exercise-2.md).
 
 ## Exercise 3 - Message Event
 TODO short description, for more details see the [exercise 3 description](exercises/exercise-3.md).
