@@ -11,7 +11,7 @@ The first exercise focuses on setting up the testing environment used in this tu
 Exercise 1.1 looks at how to use the Java debugger of your IDE to remote debug the execution of a process plugin. For more details see the [exercise 1.1 description](exercises/exercise-1-1.md).
 
 ## Exercise 2 - Input Parameter
-In order to dynamically control processes that are packaged as a process plugins, we will take a look at two possibilities on how to pass input parameters to a process. For more details see the [exercise 2 description](exercises/exercise-2.md).
+In order to configure processes that are packaged as process plugins, we will take a look at two possibilities on how to pass parameters to a process. For more details see the [exercise 2 description](exercises/exercise-2.md).
 
 ## Exercise 3 - Message Events
 Communication between organizations is modeled using message flow in BPMN processes. The third exercise shows how a process at one organization can trigger a process at another organization. For more details see the [exercise 3 description](exercises/exercise-3.md).
