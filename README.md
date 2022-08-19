@@ -17,8 +17,7 @@ In order to dynamically control processes that are packaged as a process plugins
 Communication between organizations is modeled using message flow in BPMN processes. The third exercise shows how a process at one organization can trigger a process at another organization. For more details see the [exercise 3 description](exercises/exercise-3.md).
 
 ## Exercise 4 - Exclusive Gateway
-Different sequence flows of a process instance execution based on execution variables can be facilitated using exclusive
-gateways. We will examine in Exercise 4 how this can be implemented. For more details see the [exercise 4 description](exercises/exercise-4.md).
+Different sequence flows of a process instance execution based on execution variables can be facilitated using exclusive gateways. We will examine in Exercise 4 how this can be implemented. For more details see the [exercise 4 description](exercises/exercise-4.md).
 
 ## Exercise 5 - Event Gateway and Intermediate Events
 In the final exercise we look at message flow between three organizations as well as continuing a process if no return message arrives. For more details see the [exercise 5 description](exercises/exercise-5.md).
