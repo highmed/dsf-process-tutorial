@@ -1,5 +1,5 @@
-# Exercise 1.1 - Simple Process
-The first exercise focuses on setting up the testing environment used in this tutorial and shows how to implement and execute a simple BPMN process.
+# Exercise 1.1 - Process Debugging
+This exercise looks at how to use the Java debugger of your IDE to remote debug the execution of a process plugin.
 
 ## Introduction
 TODO
