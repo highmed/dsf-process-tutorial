@@ -13,6 +13,9 @@ In order to solve this problem we can add an [Event Based Gateway](https://docs.
   <img alt="BPMN collaboration diagram with Event Based Gateway" src="figures/exercise5_event_based_gateway.svg">
 </picture>
 
+#### Timer Events
+For [Timer Events](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/timer-events/) the duration until the timer fires is specified using the [ISO 8601 Durations](http://en.wikipedia.org/wiki/ISO_8601#Durations) format. Examples can be found in the [Camunda 7 documentation](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/timer-events/#time-duration).
+
 ### Matching Process Instances With Business Keys
 In the example above the first organization is sending a "message" to the second and waiting for a reply. In order to correlate the return message with the waiting process instance, a unique identifier needs to be exchanged between both process instances. Within the DSF this is implemented using the process instance _business-key_ and a corresponding [Task.input](http://hl7.org/fhir/R4/task.html) parameter. For **1:1** communication relationships this is handled by the DSF BPE servers automatically, but the corresponding [Task](http://hl7.org/fhir/R4/task.html) profiles need to define the _business-key_ input parameter as mandatory.
 
