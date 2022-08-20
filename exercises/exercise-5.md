@@ -7,7 +7,11 @@ If an existing and started process instance is waiting for a message from anothe
 
 In order to solve this problem we can add an [Event Based Gateway](https://docs.camunda.org/manual/7.17/reference/bpmn20/gateways/event-based-gateway/) to the process waiting for a response and then either handle a [Task](http://hl7.org/fhir/R4/task.html) resource with the response and finish the process in a success state or fire of an [Intermediate Timer Catch Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/timer-events/#timer-intermediate-catching-event) after a defined wait period and finish the process in an error state. The following BPMN collaboration diagram shows how the process at the first organization would look like if two different message or no message could be received:
 
-![BPMN collaboration diagram with Event Based Gateway](figures/exercise5_event_based_gateway.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/exercise5_event_based_gateway_inverted.svg">
+  <source media="(prefers-color-scheme: light)" srcset="figures/exercise5_event_based_gateway.svg">
+  <img alt="BPMN collaboration diagram with Event Based Gateway" src="figures/exercise5_event_based_gateway.svg">
+</picture>
 
 ### Matching Process Instances With Business Keys
 In the example above the first organization is sending a "message" to the second and waiting for a reply. In order to correlate the return message with the waiting process instance, a unique identifier needs to be exchanged between both process instances. Within the DSF this is implemented using the process instance _business-key_ and a corresponding [Task.input](http://hl7.org/fhir/R4/task.html) parameter. For **1:1** communication relationships this is handled by the DSF BPE servers automatically, but the corresponding [Task](http://hl7.org/fhir/R4/task.html) profiles need to define the _business-key_ input parameter as mandatory.
