@@ -1,3 +1,6 @@
+[Prerequisites](prerequisites.md) • **Exercise 1** • [Exercise 1.1](exercise-1-1.md) • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • [Exercise 5](exercise-5.md)
+___
+
 # Exercise 1 - Simple Process
 The first exercise focuses on setting up the testing environment used in this tutorial and shows how to implement and execute a simple BPMN process.
 
@@ -63,3 +66,6 @@ To verify the `highmedorg_helloDic` process can be executed successfully, we nee
 	Verify that the FHIR [Task](http://hl7.org/fhir/R4/task.html) resource could be created at the DSF FHIR server. The TutorialExampleStarter class should print a message `HTTP 201: Created` showing that the [Task](http://hl7.org/fhir/R4/task.html) resource was created.
 	
 	Verify that the `highmedorg_helloDic` process was executed by the DSF BPE server. The BPE server should print a message showing that the process was started, print the log message you added to the `HelloDic` class and end with a message showing that the process finished.
+
+___
+[Prerequisites](prerequisites.md) • **Exercise 1** • [Exercise 1.1](exercise-1-1.md) • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • [Exercise 5](exercise-5.md)

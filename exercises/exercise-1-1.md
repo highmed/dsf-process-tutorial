@@ -1,3 +1,6 @@
+[Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • **Exercise 1.1** • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • [Exercise 5](exercise-5.md)
+___
+
 # Exercise 1.1 - Process Debugging
 This exercise looks at how to use the Java debugger of your IDE to remote debug the execution of a process plugin.
 
@@ -25,3 +28,6 @@ An `EXTRA_JVM_ARGS` environment variable is configure for all DSF FHIR server an
 5. Start your previously defined remote Java debugger.
 6. Execute the `TutorialExampleStarter` class to start `highmed_helloDic` process.
 7. User your Java IDE debugger to step thru the code of the `HelloDic` class.
+
+___
+[Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • **Exercise 1.1** • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • [Exercise 5](exercise-5.md)

@@ -1,3 +1,6 @@
+[Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • [Exercise 1.1](exercise-1-1.md) • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • **Exercise 4** • [Exercise 5](exercise-5.md)
+___
+
 # Exercise 4 - Exclusive Gateway
 Different sequence flows of a process instance execution based on execution variables can be facilitated using exclusive gateways. We will examine in Exercise 4 how this can be implemented by enhancing the `highmedorg_helloDic` process.
 
@@ -53,3 +56,6 @@ To verify the `highmedorg_helloDic` and `highmedorg_helloCos` processes can be e
    Execute therefore the `main` method of the `org.highmed.dsf.process.tutorial.TutorialExampleStarter` class to create the [Task](http://hl7.org/fhir/R4/task.html) resource needed to start the `highmedorg_helloDic` process.
 
    Verify that the `highmedorg_helloDic` process was executed successfully by the `Test_DIC` DSF BPE server and possibly the `highmedorg_helloCos` process by the `Test_COS` DSF BPE server, depending on whether decision of your algorithm based on the input parameter allowed to start the `highmedorg_helloDic` process.
+
+___
+[Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • [Exercise 1.1](exercise-1-1.md) • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • **Exercise 4** • [Exercise 5](exercise-5.md)

@@ -1,3 +1,6 @@
+[Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • [Exercise 1.1](exercise-1-1.md) • **Exercise 2** • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • [Exercise 5](exercise-5.md)
+___
+
 # Exercise 2 - Input Parameter
 In order to configure processes that are packaged as process plugins, we will take a look at two possibilities on how to pass parameters to a process. The goal of this exercise is to enhance the `highmedorg_helloDic` process by trying them both.
 
@@ -86,3 +89,6 @@ To verify the `highmedorg_helloDic` process can be executed successfully, we nee
     * If logging is enabled - print the log message and the value of the input parameter you added to the `HelloDic`
       implementation.
     * Print a message showing that the process finished.
+
+___
+[Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • [Exercise 1.1](exercise-1-1.md) • **Exercise 2** • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • [Exercise 5](exercise-5.md)
