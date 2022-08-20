@@ -2,12 +2,25 @@
 ___
 
 # Exercise 4 - Exclusive Gateways
-Different sequence flows of a process instance execution based on execution variables can be facilitated using exclusive gateways. We will examine in Exercise 4 how this can be implemented by enhancing the `highmedorg_helloDic` process.
+Different execution paths in a process based on the state of process variables can be achieved using Exclusive Gateways. In Exercise 4 we will examine how this can be implemented by modifying the `highmedorg_helloDic` process.
 
 ## Introduction
+### Exclusive Gateways
 Different sequence flows during the execution of a process instance can be modeled using BPMN [Exclusive Gateways](https://docs.camunda.org/manual/7.4/reference/bpmn20/gateways/exclusive-gateway/). For each outgoing sequence flow of the gateway, a BPMN [Condition Expression](https://docs.camunda.org/manual/7.17/user-guide/process-engine/expression-language/#conditions) can be added to the process model, deciding whether a sequence flow should be followed. Thereby, all condition decisions must be in an XOR relationship to each other. 
 
+### Condition Expressions
 A BPMN [Condition Expression](https://docs.camunda.org/manual/7.17/user-guide/process-engine/expression-language/#conditions) uses the `${..}` notation. Within the curly braces all execution variables of a process instance can be accessed, e.g. the ones that were stored in a previous Java implementation of a BPMN [ServiceTask](https://docs.camunda.org/manual/7.17/reference/bpmn20/tasks/service-task/). For example, the BPMN [Condition Expression](https://docs.camunda.org/manual/7.17/user-guide/process-engine/expression-language/#conditions) `${cohortSize > 100}` checks whether the value in the execution variable *cohortSize* is greater than 100.
+
+### Storing / Modifying Process Variables
+Via the `DelegateExecution execution` parameter of the `doExecute` method of a class extending `AbstractServiceDelegate`, we can write and read process variables of the current process instance. The following code listing show how to write and read a `boolean` variable:
+```java
+{
+	execution.setVariable("variable-name", Variables.booleanValue(false));
+	boolean variable = (boolean) execution.getVariable("variable-name");
+}
+```
+
+For more details on process variables see the [Camunda documentation](https://docs.camunda.org/manual/7.17/user-guide/process-engine/variables/).
 
 ## Exercise Tasks
 1. In the `HelloDic` class, write an algorithm deciding based on the "leading" Task's input parameter `tutorial-input`, whether the `highmedorg_helloCos` process should be started.
@@ -34,19 +47,19 @@ To verify the `highmedorg_helloDic` and `highmedorg_helloCos` processes can be e
    ```
    Verify the DSF FHIR server started successfully.
 
-2. Start the DSF BPE server for the `Test_DIC` organization in another console at location `.../dsf-process-tutorial/test-setup`:
+2. Start the DSF BPE server for the `Test_DIC` organization in a second console at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up dic-bpe
    ```
    Verify the DSF BPE server started successfully and deployed the `highmedorg_helloDic` process.
 
-3. Start the DSF FHIR server for the `Test_COS` organization in a console at location `.../dsf-process-tutorial/test-setup`:
+3. Start the DSF FHIR server for the `Test_COS` organization in a third at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up cos-fhir
    ```
    Verify the DSF FHIR server started successfully.
 
-4. Start the DSF BPE server for the `Test_COS` organization in another console at location `.../dsf-process-tutorial/test-setup`:
+4. Start the DSF BPE server for the `Test_COS` organization in a fourth console at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up cos-bpe
    ```

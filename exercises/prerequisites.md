@@ -2,7 +2,7 @@
 ___
 
 # Prerequisites
-In order to be able to solve the exercises described in this tutorial a software development environment with git, Java 11, Maven 3.8, Docker, docker-compose, a Java IDE like Eclipse or IntelliJ, a BPMN Editor like the Camunda Modeller and minimum 16GB of RAM is needed.
+In order to be able to solve the exercises described in this tutorial a software development environment with git, Java 11, Maven 3.8, Docker, docker-compose, a Java IDE like Eclipse or IntelliJ, a BPMN Editor like the Camunda Modeler a and minimum 16GB of RAM is needed.
 
 ## git
 [git](https://git-scm.com) is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
@@ -20,9 +20,9 @@ When implementing DSF processes, we use Maven 3.8 to manage the software project
 - The most important maven commands are described here: [commands](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 
 ### GitHub Packages
-In order to install DSF packages from the GitHub Package Registry using Maven you need a personal GitHub access token. This [GitHub documentation](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) shows you how to generate one.
+In order to download DSF packages from the GitHub Package Registry using Maven you need a personal GitHub access token with scope `read:packages`. This [GitHub documentation](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) shows you how to generate one.
 
-After that, add the following `server` configuration to your local `.m2/settings.xml`. Replace `USERNAME` with your GitHub username and `TOKEN` with the previously generated personal GitHub access token. The token needs at least the scope `read:packages`.
+After that, add the following `server` configuration to your local `.m2/settings.xml`. Replace `USERNAME` with your GitHub username and `TOKEN` with the previously generated personal GitHub access token. The token needs at least the `read:packages` scope.
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -50,7 +50,7 @@ To be able to test the implemented processes, we use a test-setup based on Docke
 - An overview of docker-compose commands are described here: [docker-compose commands](https://docs.docker.com/compose/reference/)
 
 ### Host entries for test-setup
-The following entry is required in the `hosts` file of your computer so that the FHIR servers of the simulated organizations can be accessed in your web browser. On Linux and Mac this file is located under the path `/etc/hosts`. On Windows you can access it under `C:\Windows\System32\drivers\etc\hosts`.
+The following entries are required in the `hosts` file of your computer so that the FHIR servers of the simulated organizations can be accessed in your web browser. On Linux and Mac this file is located at `/etc/hosts`. On Windows you can find it at `C:\Windows\System32\drivers\etc\hosts`.
 
 ```
 127.0.0.1	dic
@@ -70,7 +70,7 @@ To simplify modeling of BPMN processes, we recommend a graphical editor, e.g. th
 - An installation guide for the Camunda Modeler can be found here: [installation guide](https://camunda.com/de/download/modeler/)
 
 ## Hardware
-The minimum hardware requirements to run all simulated organizations as part of the Docker test-setup are 16 GB of RAM.
+The minimum hardware requirements to run all simulated organizations as part of the Docker test-setup is 16 GB of RAM.
 
 ___
 **Prerequisites** • [Exercise 1](exercise-1.md) • [Exercise 1.1](exercise-1-1.md) • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • [Exercise 5](exercise-5.md)
