@@ -2,7 +2,7 @@
 ___
 
 # Exercise 5 - Event Based Gateways and Intermediate Events
-In the final exercise we look at message flow between three organizations as well as continuing a process if no return message arrives.
+In the final exercise we will look at message flow between three organizations as well as how to continue a waiting process if no return message arrives. With this exercise we will add a third process and complete a message loop from `Test_DIC` to `Test_COR` to `Test_HRP` back to `Test_DIC`.
 
 ## Introduction
 ### Managing Multiple- and Missing Messages
@@ -13,7 +13,7 @@ In order to solve this problem we can add an [Event Based Gateway](https://docs.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/exercise5_event_based_gateway_inverted.svg">
   <source media="(prefers-color-scheme: light)" srcset="figures/exercise5_event_based_gateway.svg">
-  <img alt="BPMN collaboration diagram with Event Based Gateway" src="figures/exercise5_event_based_gateway.svg">
+  <img alt="BPMN collaboration diagram with a Event Based Gateway" src="figures/exercise5_event_based_gateway.svg">
 </picture>
 
 #### Timer Events
@@ -148,33 +148,33 @@ To verify the `highmedorg_helloDic`, `highmedorg_helloCos` and `highmedorg_hello
    ```
    Verify the DSF FHIR server started successfully.
 
-2. Start the DSF BPE server for the `Test_DIC` organization in another console at location `.../dsf-process-tutorial/test-setup`:
+2. Start the DSF BPE server for the `Test_DIC` organization in a second console at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up dic-bpe
    ```
    Verify the DSF BPE server started successfully and deployed the `highmedorg_helloDic` process.
 
-3. Start the DSF FHIR server for the `Test_COS` organization in a console at location `.../dsf-process-tutorial/test-setup`:
+3. Start the DSF FHIR server for the `Test_COS` organization in a third console at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up cos-fhir
    ```
    Verify the DSF FHIR server started successfully.
 
-4. Start the DSF BPE server for the `Test_COS` organization in another console at location `.../dsf-process-tutorial/test-setup`:
+4. Start the DSF BPE server for the `Test_COS` organization in a fourth console at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up cos-bpe
    ```
    Verify the DSF BPE server started successfully and deployed the `highmedorg_helloDic` process.
 
 
-5. Start the DSF FHIR server for the `Test_HRP` organization in a console at location `.../dsf-process-tutorial/test-setup`:
+5. Start the DSF FHIR server for the `Test_HRP` organization in a fifth at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up hrp-fhir
    ```
    Verify the DSF FHIR server started successfully. You can access the webservice of the DSF FHIR server at https://hrp/fhir.  
    The DSF FHIR server uses a server certificate that was generated during the first maven build. To authenticate yourself to the server you can use the client certificate located at `.../dsf-process-tutorial/test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12` (Password: password).
 
-6. Start the DSF BPE server for the `Test_HRP` organization in another console at location `.../dsf-process-tutorial/test-setup`:
+6. Start the DSF BPE server for the `Test_HRP` organization in a sixth console at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up hrp-bpe
    ```
