@@ -9,8 +9,6 @@ BPMN processes are instantiated and started within DSF by creating a matching FH
 
 In order to exchange information between different processes, for example at two different organizations, BPMN message flow is used. Typically represented by a dashed line between elements with black (send) and white (receive) envelop icons. The following BPMN collaboration diagram shows two processes, with the process at "Organization 1" sending a message to "Organization 2" which results in the instantiation and execution of new process instance at the second organization.
 
-![BPMN collaboration diagram with two processes using message flow to exchange information between two organizations](figures/exercise3_message_flow.svg)
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/exercise3_message_flow_inverted.svg">
   <source media="(prefers-color-scheme: light)" srcset="figures/exercise3_message_flow.svg">
