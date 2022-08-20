@@ -19,6 +19,8 @@ Providing input parameters to a specific process instance allows for dynamic con
 * [`business-key`](https://github.com/highmed/highmed-dsf/blob/f372b757b22d59b3594a220f7f380c60aa6f00b8/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml#L146-L184) (optional 0..1): used to identify process instances
 * [`correlation-key`](https://github.com/highmed/highmed-dsf/blob/f372b757b22d59b3594a220f7f380c60aa6f00b8/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml#L185-L223) (optional 0..1): used to identify multi-instance process instances used for messaging multiple targets
 
+A later exercise will examine these input parameters and their meaning in more detail. 
+
 Since input parameters  of [Task](http://hl7.org/fhir/R4/task.html) resources are identified by predefined codes, they are defined via FHIR [CodeSystem](http://hl7.org/fhir/R4/codesystem.html) and [ValueSet](http://hl7.org/fhir/R4/valueset.html) resources. The [BPMN-Message CodeSystem](https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/CodeSystem/highmed-bpmn-message-0.5.0.xml) and the [BPMN-Message ValueSet](
 https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/ValueSet/highmed-bpmn-message-0.5.0.xml) are used in the [DSF Task Base Profile](https://github.com/highmed/highmed-dsf/blob/main/dsf-fhir/dsf-fhir-validation/src/main/resources/fhir/StructureDefinition/highmed-task-base-0.5.0.xml) to define the three default input parameters of [Task](http://hl7.org/fhir/R4/task.html) resources.
 
@@ -68,17 +70,15 @@ To verify the `highmedorg_helloDic` process can be executed successfully, we nee
    ```
    docker-compose up dic-fhir
    ```
-   Verify the DSF FHIR server started successfully. You can access the webservice of the DSF FHIR server at https://dic/fhir.  
-   The DSF FHIR server uses a server certificate that was generated during the first maven build. To authenticate yourself to the server you can use the client certificate located at `.../dsf-process-tutorial/test-data-generator/cert/Webbrowser_Test_User/Webbrowser_Test_User_certificate.p12` (Password: password).
+   Verify the DSF FHIR server started successfully.
 
 2. Start the DSF BPE server for the `Test_DIC` organization in another console at location `.../dsf-process-tutorial/test-setup`:
    ```
    docker-compose up dic-bpe
    ```
-   Verify the DSF BPE server started successfully and deployed the `highmedorg_helloDic` process. The DSF BPE server should print a message that the process was deployed. The DSF FHIR server should now have a new ActivityDefinition resource. Go to https://dic/fhir/ActivityDefinition to check if the expected resource was created by the BPE while deploying the process. The returned FHIR Bundle should contain a single ActivityDefinition. Also, go to https://dic/fhir/StructureDefinition?url=http://highmed.org/fhir/StructureDefinition/task-hello-dic to check if the expected [Task](http://hl7.org/fhir/R4/task.html) profile was created.
+   Verify the DSF BPE server started successfully and deployed the `highmedorg_helloDic` process.
 
 3. Start the `highmedorg_helloDic` process by posting a specific FHIR [Task](http://hl7.org/fhir/R4/task.html) resource to the DSF FHIR server of the `Test_DIC` organization:
-
    Execute therefore the `main` method of the `org.highmed.dsf.process.tutorial.TutorialExampleStarter` class to create the [Task](http://hl7.org/fhir/R4/task.html) resource needed to start the `highmedorg_helloDic` process.
 
    Verify that the `highmedorg_helloDic` process was executed by the DSF BPE server. The BPE server should:
