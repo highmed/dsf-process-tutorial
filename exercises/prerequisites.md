@@ -26,7 +26,7 @@ In order to install DSF packages from the GitHub Package Registry using Maven yo
 
 After that, add the following `server` configuration to your local `.m2/settings.xml`. Replace `USERNAME` with your GitHub username and `TOKEN` with the previously generated personal GitHub access token. The token needs at least the scope `read:packages`.
 
-```
+```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
