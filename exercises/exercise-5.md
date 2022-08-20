@@ -1,7 +1,7 @@
 [Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • [Exercise 1.1](exercise-1-1.md) • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • [Exercise 4](exercise-4.md) • **Exercise 5**
 ___
 
-# Exercise 5 - Event Gateway and Intermediate Events
+# Exercise 5 - Event Based Gateways and Intermediate Events
 In the final exercise we look at message flow between three organizations as well as continuing a process if no return message arrives.
 
 ## Introduction

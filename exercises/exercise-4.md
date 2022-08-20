@@ -1,7 +1,7 @@
 [Prerequisites](prerequisites.md) • [Exercise 1](exercise-1.md) • [Exercise 1.1](exercise-1-1.md) • [Exercise 2](exercise-2.md) • [Exercise 3](exercise-3.md) • **Exercise 4** • [Exercise 5](exercise-5.md)
 ___
 
-# Exercise 4 - Exclusive Gateway
+# Exercise 4 - Exclusive Gateways
 Different sequence flows of a process instance execution based on execution variables can be facilitated using exclusive gateways. We will examine in Exercise 4 how this can be implemented by enhancing the `highmedorg_helloDic` process.
 
 ## Introduction
