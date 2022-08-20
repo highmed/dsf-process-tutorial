@@ -11,6 +11,12 @@ In order to exchange information between different processes, for example at two
 
 ![BPMN collaboration diagram with two processes using message flow to exchange information between two organizations](figures/exercise3_message_flow.svg)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/exercise3_message_flow_inverted.svg">
+  <source media="(prefers-color-scheme: light)" srcset="figures/exercise3_message_flow.svg">
+  <img alt="BPMN collaboration diagram with two processes using message flow to exchange information between two organizations" src="figures/exercise3_message_flow.svg">
+</picture>
+
 Every time message flow is used in a BPMN process for the DSF, a corresponding FHIR [Task](http://hl7.org/fhir/R4/task.html) profile needs to be specified for every interaction. This profile specifies which process should be started or continued and what the message name is when correlating the appropriate [Message Start Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-start-event) or [Intermediate Message Catch Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-intermediate-catching-event). If necessary a _Business Key_ and a _Correlation Key_ are specified if different process instances need to be linked to a single execution, for example to be able to send a message back.
 
 ### BPMN Process Definition Key vs. FHIR Task.instantiatesUri and ActivityDefinition.url / version
