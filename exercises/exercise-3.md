@@ -4,13 +4,13 @@ ___
 # Exercise 3 - Message Events
 Communication between organizations is modeled using message flow in BPMN processes. The third exercise shows how a process at one organization can trigger a process at another organization.
 
-To demonstrate communication between two organizations we will configure message flow between the processes `highmedorg_helloDic` and `highmedorg_helloCos`. The processes are then to be executed at the organization `Test_DIC` and `Test_COS` respectively in the docker test setup, with the former triggering the latter.
+To demonstrate communication between two organizations we will configure message flow between the processes `highmedorg_helloDic` and `highmedorg_helloCos`. The processes are then to be executed at the organizations `Test_DIC` and `Test_COS` respectively in the docker test setup, with the former triggering execution of the latter by automatically sending a [Task](http://hl7.org/fhir/R4/task.html) from organization `Test_DIC` to organization `Test_COS`.
 
 ## Introduction
 ### Message Flow and FHIR Task resources
-BPMN processes are instantiated and started within DSF by creating a matching FHIR [Task](http://hl7.org/fhir/R4/task.html) resource in the DSF FHIR server. This is true for executing a process on the local DSF BPE server as well as creating and starting a process instance at a remote DSF BPE server.
+BPMN processes are instantiated and started within the DSF by creating a matching FHIR [Task](http://hl7.org/fhir/R4/task.html) resource in the DSF FHIR server. This is true for executing a process on the local DSF BPE server by manually creating a [Task](http://hl7.org/fhir/R4/task.html) resource, but also works by creating and starting a process instance at a remote DSF BPE server from an executing process automatically.
 
-In order to exchange information between different processes, for example at two different organizations, BPMN message flow is used. Typically represented by a dashed line between elements with black (send) and white (receive) envelop icons. The following BPMN collaboration diagram shows two processes, with the process at "Organization 1" sending a message to "Organization 2" which results in the instantiation and execution of new process instance at the second organization.
+In order to exchange information between different processes, for example at two different organizations, BPMN message flow is used. Typically represented by a dashed line arrow between elements with black (send) and white (receive) envelop icons. The following BPMN collaboration diagram shows two processes. The process at "Organization 1" is sending a message to "Organization 2" which results in the instantiation and execution of new process instance at the second organization.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/exercise3_message_flow_inverted.svg">
@@ -18,7 +18,7 @@ In order to exchange information between different processes, for example at two
   <img alt="BPMN collaboration diagram with two processes using message flow to exchange information between two organizations" src="figures/exercise3_message_flow.svg">
 </picture>
 
-Every time message flow is used in a BPMN process for the DSF, a corresponding FHIR [Task](http://hl7.org/fhir/R4/task.html) profile needs to be specified for every interaction. This profile specifies which process should be started or continued and what the message name is when correlating the appropriate [Message Start Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-start-event) or [Intermediate Message Catch Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-intermediate-catching-event). If necessary a _Business Key_ and a _Correlation Key_ are specified if different process instances need to be linked to a single execution, for example to be able to send a message back.
+Every time message flow is used in a BPMN process for the DSF, a corresponding FHIR [Task](http://hl7.org/fhir/R4/task.html) profile needs to be specified for every interaction. This profile specifies which process should be started or continued and what the message name is when correlating the appropriate [Message Start Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-start-event) or [Intermediate Message Catch Event](https://docs.camunda.org/manual/7.17/reference/bpmn20/events/message-events/#message-intermediate-catching-event). A _Business Key_ and a _Correlation Key_ are specified if different process instances need to be linked to a single execution, for example to be able to send a message back.
 
 ### BPMN Process Definition Key vs. FHIR Task.instantiatesUri and ActivityDefinition.url / version
 FHIR [ActivityDefinition](http://hl7.org/fhir/R4/activitydefinition.html) resources are used to announce what processes can be instantiated at a given DSF instance. They also control what kind of organization can request the instantiation or continuation of a process instance and what kind of organization is allowed to fulfill the request.
