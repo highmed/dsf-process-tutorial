@@ -274,7 +274,7 @@
 		</resource>
 		<request>
 			<method value="PUT"/>
-			<url value="OrganizationAffiliation?primary-organization:identifier=http://highmed.org/sid/organization-identifier|netzwerk-universitaetsmedizin.de&amp;participating-organization:identifier=http://highmed.org/sid/organization-identifier|Test_COS"/>
+			<url value="OrganizationAffiliation?primary-organization:identifier=http://highmed.org/sid/organization-identifier|medizininformatik-initiative.de&amp;participating-organization:identifier=http://highmed.org/sid/organization-identifier|Test_COS"/>
 		</request>
 	</entry>
 	<entry>
@@ -311,7 +311,7 @@
 		</resource>
 		<request>
 			<method value="PUT"/>
-			<url value="OrganizationAffiliation?primary-organization:identifier=http://highmed.org/sid/organization-identifier|netzwerk-universitaetsmedizin.de&amp;participating-organization:identifier=http://highmed.org/sid/organization-identifier|Test_DIC"/>
+			<url value="OrganizationAffiliation?primary-organization:identifier=http://highmed.org/sid/organization-identifier|medizininformatik-initiative.de&amp;participating-organization:identifier=http://highmed.org/sid/organization-identifier|Test_DIC"/>
 		</request>
 	</entry>
 	<entry>
@@ -348,7 +348,7 @@
 		</resource>
 		<request>
 			<method value="PUT"/>
-			<url value="OrganizationAffiliation?primary-organization:identifier=http://highmed.org/sid/organization-identifier|netzwerk-universitaetsmedizin.de&amp;participating-organization:identifier=http://highmed.org/sid/organization-identifier|Test_HRP"/>
+			<url value="OrganizationAffiliation?primary-organization:identifier=http://highmed.org/sid/organization-identifier|medizininformatik-initiative.de&amp;participating-organization:identifier=http://highmed.org/sid/organization-identifier|Test_HRP"/>
 		</request>
 	</entry>
 </Bundle>
