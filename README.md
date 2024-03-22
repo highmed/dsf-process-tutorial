@@ -11,6 +11,8 @@ We would like to thank everyone who has contributed to this repository with code
 # DSF Process Plugin Tutorial
 This repository contains exercises to learn how to implement process plugins for the [Data Sharing Framework (DSF)](https://github.com/highmed/highmed-dsf). The tutorial is divided into several exercises that build on each other. For each exercise, a sample solution is provided in a separate branch.
 
+This tutorial was first executed at the [GMDS / TMF 2022](https://gmds-tmf-2022.de) conference. A recording of the opening remarks by H. Hund and R. Wettstein can be found on [YouTube](https://youtu.be/2AUPwQQQsPY). The slides of the opening remarks are available as a [PDF download](exercises/figures/2022-08-21_GMDS_2022_DSF_Process_Tutorial.pdf).
+
 ## Prerequisites
 In order to be able to solve the exercises described in this tutorial a software development environment with git, Java 11, Maven 3.8, Docker, docker-compose, a Java IDE like Eclipse or IntelliJ, a BPMN Editor like the Camunda Modeler and a minimum 16GB of RAM is needed. For more details see the [detailed prerequisites document](exercises/prerequisites.md).
 
