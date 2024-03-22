@@ -1,3 +1,13 @@
+## Deprecation Notice
+
+This repository is no longer maintained. Development of the **Tutorial** process plugins has been moved to [datasharingframework/dsf-process-tutorial](https://github.com/datasharingframework/dsf-process-tutorial).
+
+Further information on the Data Sharing Framework can be found on the new project website: https://dsf.dev
+
+We would like to thank everyone who has contributed to this repository with code contributions, issues or comments.
+
+---
+
 # DSF Process Plugin Tutorial
 This repository contains exercises to learn how to implement process plugins for the [Data Sharing Framework (DSF)](https://github.com/highmed/highmed-dsf). The tutorial is divided into several exercises that build on each other. For each exercise, a sample solution is provided in a separate branch.
 
